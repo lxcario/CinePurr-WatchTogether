@@ -517,6 +517,11 @@ export default function RegisterPage() {
             >
               {t('verifyEmail')}
             </h2>
+            {!emailFailed && (
+              <div className="mb-4 p-3 bg-green-50 border-2 border-green-500 text-green-700 font-bold text-sm text-center shadow-[2px_2px_0px_0px_rgba(34,197,94,1)] flex items-center justify-center gap-2">
+                <CheckCircle size={18} /> Verification email sent. Enter the code we sent to continue.
+              </div>
+            )}
             {emailFailed ? (
               <div className="mb-6 p-3 bg-yellow-50 border-2 border-yellow-400 text-yellow-700 font-bold text-sm text-center shadow-[2px_2px_0px_0px_rgba(234,179,8,1)] flex items-center justify-center gap-2">
                 <AlertCircle size={18} /> We couldn&apos;t send your verification email. Click <b>Resend Code</b> below to try again.

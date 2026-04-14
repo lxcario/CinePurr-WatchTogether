@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
@@ -24,7 +24,6 @@ import type { WindowId } from '@/hooks/useWindowManager';
 import { useI18n } from '@/lib/i18n';
 import { ServerBrowser, CreateRoomForm, FilmNewsWidget } from '@/components/home';
 import { MobileHome } from '@/components/home/MobileHome';
-import { ShareRoomModal } from '@/components/ShareRoomModal';
 
 // Dynamic imports — deferred from initial bundle to reduce JS payload
 const FloatingParticles = dynamic(() => import('@/components/FunEffects').then(m => ({ default: m.FloatingParticles })), { ssr: false });
@@ -55,6 +54,7 @@ export interface Room {
 
 export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[] }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { data: session, status } = useSession();
   const isRouting = useRouteTransition();
   const user = session?.user;
@@ -65,7 +65,6 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
   const [publicRooms, setPublicRooms] = useState<Room[]>(initialRooms);
   const [isCreating, setIsCreating] = useState(false);
   const [joinCode, setJoinCode] = useState('');
-  const [createdRoom, setCreatedRoom] = useState<{ id: string; name: string } | null>(null);
   // Removed old pixel cat fact state and handler
   const [isLoaded, setIsLoaded] = useState(false);
   const [unlockedThemes, setUnlockedThemes] = useState<string[]>([]);
@@ -123,6 +122,19 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
     return () => clearTimeout(timeout);
   }, [session]);
 
+  useEffect(() => {
+    if (status !== 'authenticated') {
+      return;
+    }
+
+    if (searchParams.get('createRoom') !== '1' || showCreateForm) {
+      return;
+    }
+
+    setShowCreateForm(true);
+    router.replace('/');
+  }, [router, searchParams, showCreateForm, status]);
+
   // ...existing code...
 
   // Memoize room fetching with useCallback (used as initial load + fallback)
@@ -168,6 +180,7 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
     if (status === 'loading') return;
 
     if (status === 'unauthenticated') {
+      sessionStorage.setItem('redirect_url', '/?createRoom=1');
       router.push('/login');
       return;
     }
@@ -207,8 +220,9 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
       await fetchRooms();
 
       hideLoading();
-      setCreatedRoom({ id: data.roomId, name: newRoomName || 'My Room' });
+      setShowCreateForm(false);
       setIsCreating(false);
+      router.push(`/room/${data.roomId}`);
     } catch (error) {
       console.error(error);
       setIsCreating(false);
@@ -808,18 +822,6 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
 
       {/* Onboarding Tour for new users */}
       <OnboardingTour isLoggedIn={!!(session && session.user)} />
-
-      {/* Share Room Modal — shown after creating a room */}
-      {createdRoom && (
-        <ShareRoomModal
-          roomId={createdRoom.id}
-          roomName={createdRoom.name}
-          onClose={() => {
-            setCreatedRoom(null);
-            router.push(`/room/${createdRoom.id}`);
-          }}
-        />
-      )}
 
     </main >
   );

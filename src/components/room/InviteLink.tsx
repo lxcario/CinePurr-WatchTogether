@@ -70,9 +70,10 @@ export const InviteLink: React.FC<InviteLinkProps> = ({ roomId }) => {
         disabled={loading}
         className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] sm:hover:translate-x-[-1px] sm:hover:translate-y-[-1px] sm:hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all font-bold text-xs sm:text-sm min-h-[36px] sm:min-h-auto"
         style={{ backgroundColor: currentTheme.colors.secondary, color: 'white' }}
+        aria-label={loading ? 'Generating invite code' : 'Invite code'}
       >
         <Share2 size={14} className="sm:w-4 sm:h-4" />
-        <span className="hidden sm:inline">{loading ? 'Generating...' : 'Invite'}</span>
+        <span className="hidden sm:inline">{loading ? 'Generating...' : 'Invite code'}</span>
       </button>
 
       {showPopup && (

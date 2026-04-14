@@ -855,6 +855,12 @@ export default function RoomPage({ params: _params }: RoomPageProps) {
           </div>
         </header>
 
+        <div className={`px-3 py-2 shrink-0 ${isDarkMode ? 'bg-gray-900 border-b border-white/10' : 'bg-white border-b border-gray-200'}`}>
+          <p className={`text-xs font-black uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            Video player
+          </p>
+        </div>
+
         {/* Mobile Video Player - Fixed aspect ratio - Only render on mobile to prevent duplicate audio */}
         <div className={`w-full aspect-video shrink-0 ${isDarkMode ? 'bg-black' : 'bg-gray-900'}`}>
           {/* KEY FIX: Use stable key to prevent VideoPlayer unmount/remount when isMobile changes */}
@@ -1088,6 +1094,9 @@ export default function RoomPage({ params: _params }: RoomPageProps) {
           <div className="flex-1 flex gap-2 sm:gap-4 flex-col lg:flex-row overflow-hidden" style={{ minHeight: 0 }}>
             {/* Main Content Area - Video Player - z-50 to be above cinema overlay - Only render on desktop to prevent duplicate audio */}
             <div className={`flex-1 lg:flex-[3] flex flex-col justify-center relative ${cinemaMode ? 'z-50' : ''}`} style={{ minHeight: '200px', maxHeight: '100%' }}>
+              <div className={`mb-2 px-3 py-2 border-2 ${isDarkMode ? 'border-white bg-black text-white' : 'border-black bg-white text-black'}`}>
+                <h2 className="text-sm font-black uppercase tracking-wide">Video player</h2>
+              </div>
               {/* KEY FIX: Use stable key to prevent VideoPlayer unmount/remount when isMobile changes */}
               {!isMobile && (
                 <Suspense fallback={

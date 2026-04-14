@@ -156,6 +156,11 @@ export default function OnboardingTour({ onComplete, isLoggedIn = false }: Onboa
   /* ── show only for first-time visitors ── */
   useEffect(() => {
     if (initiated.current) return;
+    const isAutomationSession =
+      typeof navigator !== 'undefined' && navigator.webdriver;
+    if (isAutomationSession) {
+      return;
+    }
     const done = localStorage.getItem('cinepurr_tour_completed');
     if (!done) {
       initiated.current = true;
