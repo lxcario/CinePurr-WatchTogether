@@ -1,973 +1,900 @@
 [
   {
     "id": "TC001",
-    "title": "Register a new user shows 'verification email sent' notice",
-    "description": "Verifies a user can submit the registration form and sees a verification email sent notice.",
-    "category": "User Registration",
-    "priority": "High",
+    "title": "Join a public room and participate in synchronized session chat",
+    "description": "Verifies a guest can join a public room from discovery, see the video player load, send a chat message, and see it appear in the chat history.",
+    "category": "Watch Room — Synchronized Playback & Chat",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /register"
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Select a sort or filter option for the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the room video player to finish loading"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Hello from guest\" into the chat message input"
+      },
+      {
+        "type": "action",
+        "description": "Send the chat message"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"newuser_automation_01\" into the username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"newuser_automation_01@example.com\" into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"ValidPass123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
+        "description": "Verify the video player is displayed in the room"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"verification email\" is visible"
+        "description": "Verify the new chat message appears in the chat history"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC002",
-    "title": "Duplicate email registration shows an error message",
-    "description": "Verifies registering with an existing email displays a duplicate email error message.",
-    "category": "User Registration",
-    "priority": "High",
+    "title": "Discover rooms with sort/filter and join a public room",
+    "description": "Verifies a guest can browse rooms on the homepage, apply a trending/recent sort or filter, and join a room where playback and chat are visible.",
+    "category": "Room Discovery (Homepage)",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /register"
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Select a trending or recent sort/filter for the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list to join it"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"newuser_automation_02\" into the username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"existing@example.com\" into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"ValidPass123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
+        "description": "Verify video playback is displayed in the room"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"already\" is visible"
+        "description": "Verify real-time chat is displayed in the room"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC003",
-    "title": "Required field validation: missing username blocks registration",
-    "description": "Verifies the registration form prevents submission and shows a validation message when username is missing.",
-    "category": "User Registration",
-    "priority": "Medium",
+    "title": "Send a chat message and see it stored in recent history",
+    "description": "Verifies a viewer can send a chat message and the message appears in the chat history for the current session.",
+    "category": "Chat & Reactions",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /register"
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the chat input to be available"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Message to persist in history\" into the chat message input"
+      },
+      {
+        "type": "action",
+        "description": "Send the chat message"
+      },
+      {
+        "type": "action",
+        "description": "Scroll the chat history upward and then back to the newest messages"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"nousername_01@example.com\" into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"ValidPass123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"username\" is visible"
+        "description": "Verify the sent chat message appears in the chat history"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC004",
-    "title": "Required field validation: missing email blocks registration",
-    "description": "Verifies the registration form prevents submission and shows a validation message when email is missing.",
-    "category": "User Registration",
-    "priority": "Medium",
+    "title": "See typing indicators while in a room",
+    "description": "Verifies a viewer in a room can observe typing indicators and can scroll chat to read recent history.",
+    "category": "Watch Room — Synchronized Playback & Chat",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /register"
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the room chat panel to load"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a typing indicator to appear in the chat area"
+      },
+      {
+        "type": "action",
+        "description": "Scroll the chat history upward to view older messages"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"missingemail_automation\" into the username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"ValidPass123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
+        "description": "Verify a typing indicator is displayed in the chat area"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"email\" is visible"
+        "description": "Verify chat history messages are displayed when scrolled"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC005",
-    "title": "Invalid email format shows an error message",
-    "description": "Verifies the registration form shows an error when an invalid email address is entered.",
-    "category": "User Registration",
-    "priority": "Medium",
+    "title": "Queue suggestions appear after adding a video by URL",
+    "description": "Verifies a viewer can add a video to the room queue by submitting a URL and the new item appears in the queue list.",
+    "category": "Video Queue & Voting",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /register"
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-to-queue URL input or add-by-link flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid YouTube URL into the video URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the video to the queue"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"invalidemail_automation\" into the username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"not-an-email\" into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"ValidPass123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"valid email\" is visible"
+        "description": "Verify a new queued item appears in the queue list"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC006",
-    "title": "Password too short/weak shows an error message",
-    "description": "Verifies the registration form shows an error when a weak or too-short password is used.",
+    "title": "Search TMDB and add a result to the room queue",
+    "description": "A user can search TMDB from a room, view rich results, and add one result to the queue so it appears as a queued item.",
+    "category": "Video Search (TMDB & YouTube URL)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the video search modal"
+      },
+      {
+        "type": "action",
+        "description": "Fill a common movie or TV query into the search field"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the TMDB results to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify TMDB results are displayed with poster imagery and metadata (such as year and overview)"
+      },
+      {
+        "type": "action",
+        "description": "Select a result to add it to the room queue"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected item appears in the room queue"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Log in to access personalized homepage",
+    "description": "Verifies a user can log in with valid credentials and is taken to a personalized homepage state.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email or username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the homepage in a logged-in state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Room loads a queue list and chat without requiring login",
+    "description": "Verifies a guest can open a room and see both the queue area and chat area available for viewing and interaction.",
+    "category": "Watch Room — Synchronized Playback & Chat",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the room layout to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the queue list area is displayed in the room"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the chat area is displayed in the room"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Join a room from recommendations or recent rooms widget",
+    "description": "Verifies a guest can open a room from the recommendations/recent widget and see room participants information.",
+    "category": "Room Discovery (Homepage)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the recommendations or recent rooms widget"
+      },
+      {
+        "type": "action",
+        "description": "Click a room in the widget to join it"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the room shows host and viewer list information"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Voting on a queue item increases its vote count and affects ordering",
+    "description": "Verifies a viewer can upvote a queued item and the UI reflects an increased vote count and a reorder consistent with higher votes.",
+    "category": "Video Queue & Voting",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-to-queue URL input or add-by-link flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid YouTube URL into the video URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the video to the queue"
+      },
+      {
+        "type": "action",
+        "description": "Locate the newly added queue item in the queue list"
+      },
+      {
+        "type": "action",
+        "description": "Upvote the queue item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the queue item vote count increases"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the queue list order updates to reflect the higher-voted item"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Add a YouTube URL to the room queue",
+    "description": "A user can paste a valid YouTube URL in the add dialog and submit it so the video is added to the room queue.",
+    "category": "Video Search (TMDB & YouTube URL)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the video add dialog for direct URLs"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid YouTube URL into the URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the URL to add the video"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a new YouTube-based item appears in the room queue"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Register a new account and reach homepage",
+    "description": "Verifies a new user can register successfully and is redirected to the homepage after registration.",
     "category": "User Registration",
-    "priority": "Low",
     "steps": [
       {
         "type": "action",
         "description": "Navigate to /register"
       },
       {
-        "type": "assertion",
-        "description": "Verify text \"Register\" is visible"
+        "type": "action",
+        "description": "Fill a unique username into the username field"
       },
       {
         "type": "action",
-        "description": "Type \"weakpass_automation\" into the username field"
+        "description": "Fill a unique email into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"weakpass_automation@example.com\" into the email field"
+        "description": "Fill a valid password into the password field"
       },
       {
         "type": "action",
-        "description": "Type \"123\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Register\""
+        "description": "Submit the registration form"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"password\" is visible"
+        "description": "Verify the user is redirected to the homepage after registration"
       }
-    ]
-  },
-  {
-    "id": "TC007",
-    "title": "Admin can toggle maintenance mode and see confirmation toast",
-    "description": "Verifies an admin user can access the Admin Panel, toggle maintenance mode, and receives a visible success confirmation.",
-    "category": "Admin Panel",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/\" or another non-login page (login is no longer shown)"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "action",
-        "description": "Toggle maintenance mode"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"maintenance\" is visible in a confirmation toast or message"
-      }
-    ]
-  },
-  {
-    "id": "TC008",
-    "title": "Non-admin user is blocked from Admin Panel with an access denied message",
-    "description": "Verifies a non-admin authenticated user cannot use the Admin Panel and sees an insufficient permissions message.",
-    "category": "Admin Panel",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"nonadmin.user@example.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"WrongPassword123!\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"access denied\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC009",
-    "title": "Admin can send a global broadcast and see confirmation",
-    "description": "Verifies an admin can send a global broadcast message from the Admin Panel and sees a visible success confirmation.",
-    "category": "Admin Panel",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/\" or another non-login page (login is no longer shown)"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Scheduled maintenance starts in 10 minutes.\" into the broadcast message field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" or \"Send broadcast\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"broadcast\" is visible in a confirmation toast or message"
-      }
-    ]
-  },
-  {
-    "id": "TC010",
-    "title": "Admin Panel page renders core controls for an admin user",
-    "description": "Verifies the Admin Panel loads successfully for an admin and displays global controls such as maintenance mode and broadcast UI.",
-    "category": "Admin Panel",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify page title contains \"Admin\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Maintenance\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Broadcast\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC011",
-    "title": "Maintenance mode toggle can be switched on and then off with confirmations",
-    "description": "Verifies an admin can flip maintenance mode in both directions during a single session and receives confirmation each time.",
-    "category": "Admin Panel",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "action",
-        "description": "Toggle maintenance mode"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"maintenance\" is visible in a confirmation toast or message"
-      },
-      {
-        "type": "action",
-        "description": "Toggle maintenance mode"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"maintenance\" is visible in a confirmation toast or message"
-      }
-    ]
-  },
-  {
-    "id": "TC012",
-    "title": "Broadcast validation: attempting to send an empty broadcast shows an error",
-    "description": "Verifies the broadcast form prevents sending an empty message and shows a visible validation error.",
-    "category": "Admin Panel",
-    "priority": "Low",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" or \"Send broadcast\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"required\" is visible"
-      }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC013",
-    "title": "Create a new public co-watching room and land on the room page",
-    "description": "Verifies a user can create a room as public and sees the room UI (player/chat) after creation.",
-    "category": "Join / Create Co-watching Room",
-    "priority": "High",
+    "title": "React to a chat message and see reaction count and floating reaction",
+    "description": "Verifies a viewer can add an emoji reaction to an existing chat message and the UI updates reaction count and shows a floating reaction over the video.",
+    "category": "Chat & Reactions",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click a public room from the room list"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill \"React to this\" into the chat message input"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Send the chat message"
+      },
+      {
+        "type": "action",
+        "description": "React to the most recent chat message with an emoji"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Create Room\""
-      },
-      {
-        "type": "action",
-        "description": "Select \"Public\" in the room visibility option"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Create\""
+        "description": "Verify the reacted message shows an updated reaction count"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Video player\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Chat\" is visible"
+        "description": "Verify a floating reaction appears over the video player"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC014",
-    "title": "Create a new private co-watching room using a template",
-    "description": "Verifies a user can create a private room and the room is created successfully with expected room UI.",
-    "category": "Join / Create Co-watching Room",
-    "priority": "High",
+    "title": "Save a TMDB result to watchlist and see it on homepage",
+    "description": "A logged-in member can save a TMDB item to their watchlist and then see it listed in the watchlist section on the homepage.",
+    "category": "Watchlist & Watch History",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_watchlist"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_watchlist@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the video search modal"
+      },
+      {
+        "type": "action",
+        "description": "Fill a common movie query into the search field"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the TMDB results to load"
+      },
+      {
+        "type": "action",
+        "description": "Save one result to the personal watchlist"
+      },
+      {
+        "type": "action",
+        "description": "Close the modal to return to the homepage"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Create Room\""
-      },
-      {
-        "type": "action",
-        "description": "Select \"Private\" in the room visibility option"
-      },
-      {
-        "type": "action",
-        "description": "Select a room \"Template\" option"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Create\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Invite code\" is visible"
+        "description": "Verify the watchlist section is visible and contains at least one saved item"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC015",
-    "title": "Attempt to join a private room without entering an invite code",
-    "description": "Verifies the UI blocks joining when invite code is missing and shows an access denied/required code message.",
-    "category": "Join / Create Co-watching Room",
-    "priority": "High",
+    "title": "Quest progress updates after sending a chat message in a room",
+    "description": "A logged-in member can send a chat message in a room and then see daily quest progress update for messaging activity.",
+    "category": "Progress, Daily Quests & Leaderboards",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_chat_quest"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_chat_quest@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Fill a short message into the chat input field"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to return to the homepage"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Join Private Room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Join\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Access denied\" is visible"
+        "description": "Verify a daily quest related to messaging shows updated progress and the XP display is visible"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC016",
-    "title": "Attempt to join a private room with an invalid invite code",
-    "description": "Verifies the UI shows a clear error when an invalid invite code is provided.",
-    "category": "Join / Create Co-watching Room",
-    "priority": "Medium",
+    "title": "Watch history is created after a room video change and is viewable with a rejoin link",
+    "description": "A logged-in member who participates in a room and experiences a video change sees a new watch history entry with a link to rejoin the room.",
+    "category": "Watchlist & Watch History",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_history"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_history@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the video add dialog for direct URLs"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid YouTube URL into the URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the URL to add the video"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the room player to load or update to a new video state"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the watch history window"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Join Private Room\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"INVALID-CODE-000\" into the invite code field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Join\""
+        "description": "Verify at least one watch history entry is shown with an option to rejoin the associated room"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC017",
-    "title": "Add a valid video to the queue via direct URL",
-    "description": "Verifies a user can add a supported video URL and see the queue update with the new item.",
-    "category": "Video Queue & Voting",
-    "priority": "High",
+    "title": "View daily quests and XP on homepage after login and see progress change after joining a room",
+    "description": "A logged-in member can see daily quests and XP on the homepage and after joining a room the quest progress updates accordingly.",
+    "category": "Progress, Daily Quests & Leaderboards",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_quests"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_quests@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the daily quests and XP area on the homepage"
+      },
+      {
+        "type": "action",
+        "description": "Click a public room from the room list"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to return to the homepage"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Add to queue\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\" into the video URL input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Add\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"dQw4w9WgXcQ\" is visible"
+        "description": "Verify at least one daily quest shows updated progress and the XP display is visible"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC018",
-    "title": "Add to queue shows TMDB selection option (modal entry point)",
-    "description": "Verifies the Add to queue flow exposes an option to pick a title from a TMDB selection modal.",
-    "category": "Video Queue & Voting",
-    "priority": "Medium",
+    "title": "Remove an item from watchlist from the homepage watchlist section",
+    "description": "A logged-in member can remove a previously saved watchlist item and it no longer appears in the watchlist list.",
+    "category": "Watchlist & Watch History",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_watchlist_remove"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_watchlist_remove@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the video search modal"
+      },
+      {
+        "type": "action",
+        "description": "Fill a common movie query into the search field"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the TMDB results to load"
+      },
+      {
+        "type": "action",
+        "description": "Save one result to the personal watchlist"
+      },
+      {
+        "type": "action",
+        "description": "Close the modal to return to the homepage"
+      },
+      {
+        "type": "action",
+        "description": "Remove the saved item from the watchlist"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Add to queue\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"TMDB\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Select from TMDB\" is visible"
+        "description": "Verify the watchlist no longer shows the removed item"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC019",
-    "title": "Invalid URL is rejected with a visible validation error",
-    "description": "Verifies unsupported video URLs cannot be added and an error is shown to the user.",
-    "category": "Video Queue & Voting",
-    "priority": "High",
+    "title": "Search from homepage and start adding content without joining a room",
+    "description": "A user can open video search from the homepage, search TMDB, and select a result to proceed into the add flow (without requiring room entry first).",
+    "category": "Video Search (TMDB & YouTube URL)",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click the control to open the video search modal from the homepage"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill a common movie or TV query into the search field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Wait for the TMDB results to load"
+      },
+      {
+        "type": "action",
+        "description": "Select a result to open its add/preview flow"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Add to queue\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"not-a-valid-url\" into the video URL input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Add\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"unsupported\" is visible"
+        "description": "Verify the selected result opens a detail/preview state or add-to-queue confirmation UI"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC020",
-    "title": "Attempt to add an empty URL shows required-field validation",
-    "description": "Verifies the Add action is blocked when the URL field is empty and a required/validation message is shown.",
-    "category": "Video Queue & Voting",
-    "priority": "Medium",
+    "title": "Browse leaderboards and open a user profile from a leaderboard entry",
+    "description": "A member can open the leaderboards, view top users, and navigate to a user profile from the list.",
+    "category": "Progress, Daily Quests & Leaderboards",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_leaderboards"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_leaderboards@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the leaderboards section on the homepage"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
+        "description": "Verify leaderboards are displayed for multiple categories (such as watch time, level, streak, and messages)"
       },
       {
         "type": "action",
-        "description": "Click \"Add to queue\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Add\" button"
+        "description": "Click a username from the leaderboards"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"required\" is visible"
+        "description": "Verify a user profile page is displayed"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC021",
-    "title": "Send a chat message in the room",
-    "description": "Verifies a logged-in user can send a chat message and see it appear in the chat history.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "High",
+    "title": "Validate email format during registration",
+    "description": "Verifies registration blocks submission with an inline validation error when the email format is invalid.",
+    "category": "User Registration",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a unique username into the username field"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill invalid-email-format into the email field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a valid password into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Hello from UI test\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Hello from UI test\" is visible"
+        "description": "Verify an inline email validation error is visible"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC022",
-    "title": "Chat message persists in visible chat history after sending",
-    "description": "Verifies that after sending a message, it remains visible in the chat history list (not only as a transient toast).",
-    "category": "Real-time Chat & Reactions",
-    "priority": "Medium",
+    "title": "Prevent adding an invalid video URL to the queue",
+    "description": "Verifies the queue add-by-URL flow rejects an invalid URL with a visible validation error and does not add an item to the queue.",
+    "category": "Video Queue & Voting",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click a public room from the room list"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Open the add-to-queue URL input or add-by-link flow"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill \"not-a-url\" into the video URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the video to the queue"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Message should stay in history\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
+        "description": "Verify a URL validation error is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Message should stay in history\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Scroll to the chat message list area"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Message should stay in history\" is visible"
+        "description": "Verify no new queued item is added to the queue list"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC023",
-    "title": "Add an emoji reaction to a chat message",
-    "description": "Verifies a user can react to an existing message and see the reaction displayed on the message.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "High",
+    "title": "Invalid YouTube URL is blocked with inline validation",
+    "description": "A user who pastes an invalid YouTube URL cannot submit and sees a validation error state.",
+    "category": "Video Search (TMDB & YouTube URL)",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click a public room from the room list"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Click the control to open the video add dialog for direct URLs"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill an invalid URL into the URL field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the URL to add the video"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"React to this message\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"React to this message\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the reaction (emoji) control on the message \"React to this message\""
-      },
-      {
-        "type": "action",
-        "description": "Click an emoji reaction (for example, a thumbs up or heart) in the reaction picker"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify an emoji reaction indicator is visible on the message \"React to this message\""
+        "description": "Verify a URL validation error is visible and the item is not added to the queue"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC024",
-    "title": "Floating reaction appears after reacting to a message",
-    "description": "Verifies that reacting produces a visible floating reaction animation/overlay for viewers in the room UI.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "Medium",
+    "title": "Show invalid-credentials error on failed login",
+    "description": "Verifies submitting incorrect login credentials shows an invalid-credentials error and the user remains unauthenticated.",
+    "category": "User Login",
     "steps": [
       {
         "type": "action",
@@ -975,1322 +902,149 @@
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill invalid_user into the email or username field"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill wrong_password into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Submit the login form"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Trigger floating reaction\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Trigger floating reaction\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the reaction (emoji) control on the message \"Trigger floating reaction\""
-      },
-      {
-        "type": "action",
-        "description": "Click an emoji reaction (for example, a heart) in the reaction picker"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify a floating emoji reaction is visible over the room content"
+        "description": "Verify an invalid credentials error is visible"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC025",
-    "title": "Rate limit triggers when sending many messages quickly",
-    "description": "Verifies that rapid message sending triggers the rate limit UI feedback and prevents unlimited spamming.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "High",
+    "title": "Prevent sending an empty chat message",
+    "description": "Verifies the chat input prevents sending an empty message and no new chat entry is created.",
+    "category": "Chat & Reactions",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click a public room from the room list"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Wait for the chat input to be available"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill \"   \" into the chat message input"
+      },
+      {
+        "type": "action",
+        "description": "Send the chat message"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam 1\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam 2\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam 3\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam 4\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam 5\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
+        "description": "Verify an input validation state is visible for the chat message"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"rate limit\" is visible"
+        "description": "Verify no new message appears in the chat history"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC026",
-    "title": "After rate limit, user can send a message again after waiting",
-    "description": "Verifies the rate limit is temporary and messaging resumes after a cooldown period.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "Medium",
+    "title": "Search with no matches shows an empty results state",
+    "description": "A user who searches TMDB with a nonsense query sees a clear empty state indicating no results were found.",
+    "category": "Video Search (TMDB & YouTube URL)",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Click a public room from the room list"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Click the control to open the video search modal"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a nonsense query into the search field"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the search results area to update"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Burst 1\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Burst 2\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Burst 3\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"rate limit\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Wait for 10 seconds"
-      },
-      {
-        "type": "action",
-        "description": "Type \"After cooldown\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"After cooldown\" is visible"
+        "description": "Verify an empty state is displayed for no search results"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC027",
-    "title": "Sending an empty chat message does not create a new message",
-    "description": "Verifies the chat input validates empty submissions and does not add a blank message to the chat.",
-    "category": "Real-time Chat & Reactions",
-    "priority": "Low",
+    "title": "Watch history empty state for a new account",
+    "description": "A newly registered member with no watched items can open watch history and see an empty state instead of a blank or broken view.",
+    "category": "Watchlist & Watch History",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /register"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+        "description": "Fill a username field with test_user_history_empty"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+        "description": "Fill an email field with test_user_history_empty@example.com"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Fill a password field with TestPassword123!"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to open the watch history window"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"cannot be empty\" is visible"
+        "description": "Verify an empty state is displayed for watch history"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC028",
-    "title": "Start a Pomodoro session with configured intervals",
-    "description": "Verifies a user can configure work/break intervals and start a Pomodoro timer with focus UI visible.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "High",
+    "title": "Handle empty room list state on homepage",
+    "description": "Verifies the homepage shows a clear empty state when no public rooms are available to browse.",
+    "category": "Room Discovery (Homepage)",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /login"
+        "description": "Navigate to /"
       },
       {
         "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Select a sort/filter option that yields no rooms if available"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "action",
-        "description": "Select a work interval option from the work interval dropdown"
-      },
-      {
-        "type": "action",
-        "description": "Select a break interval option from the break interval dropdown"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Pomodoro timer\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Focus\" is visible"
+        "description": "Verify an empty state message is visible for the room list"
       }
-    ]
-  },
-  {
-    "id": "TC029",
-    "title": "Start Pomodoro without changing default intervals",
-    "description": "Verifies a user can start the Pomodoro timer using default work/break settings.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Pomodoro timer\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Focus\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC030",
-    "title": "Prevent starting a duplicate session while one is active",
-    "description": "Verifies the UI prevents starting a second Pomodoro session while an active one is running.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Pomodoro timer\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"already active\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC031",
-    "title": "Complete a Pomodoro session and see it logged",
-    "description": "Verifies a completed Pomodoro session appears in the session log/history UI.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Pomodoro timer\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Complete\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Session logged\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Session history\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC032",
-    "title": "Study streak increments after completing a session",
-    "description": "Verifies that completing a Pomodoro session increments the displayed study streak.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Study streak\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Complete\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Streak\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC033",
-    "title": "Change intervals before starting and verify they are reflected in the timer UI",
-    "description": "Verifies that selecting different work/break intervals is reflected in the visible timer state after starting.",
-    "category": "Study Room (Pomodoro)",
-    "priority": "Low",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/study\""
-      },
-      {
-        "type": "action",
-        "description": "Select a work interval option from the work interval dropdown"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify the selected work interval value is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Start Pomodoro\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Pomodoro timer\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC034",
-    "title": "Join a room awards XP and updates Stats display",
-    "description": "Verifies that joining a room increases the user XP and that the updated total is visible on the Stats page.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"XP\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Level\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC035",
-    "title": "XP progress bar is visible and shows progress on Room page after login",
-    "description": "Verifies that the user can see an XP progress indicator (progress bar) while in an authenticated room page.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"XP progress\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"progress bar\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC036",
-    "title": "Daily quest completion via sending 5 messages credits quest XP (happy path)",
-    "description": "Verifies that completing the daily quest by sending messages results in a visible quest completion state and XP reward credit.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Quest msg 1\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Quest msg 1\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC037",
-    "title": "Continue sending messages until daily quest shows completed state",
-    "description": "Verifies that after repeated message sends, the daily quest is visibly marked complete (without requiring navigation to an unlisted stats route).",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Quest msg 2\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Daily quest\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC038",
-    "title": "Attempt to claim daily quest reward before meeting target shows not eligible message",
-    "description": "Verifies that claiming a daily quest reward without meeting the requirement shows a visible error/not-eligible message.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Claim\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"not eligible\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"complete the quest\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC039",
-    "title": "Daily quest Claim button is disabled or blocked when incomplete",
-    "description": "Verifies that the UI prevents claiming an incomplete daily quest via disabled state or a visible blocking message.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Claim\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Claim\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"not eligible\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC040",
-    "title": "Quest completion state persists after leaving and re-entering the room (same session)",
-    "description": "Verifies that once the daily quest is completed, the completed state remains visible after a simple page revisit within the same session.",
-    "category": "XP, Levels & Daily Quests",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Daily quest\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /study"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /room"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Completed\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC041",
-    "title": "Mini player loads and remains visible on the room page",
-    "description": "Verifies the mini player appears in the bottom-right area after login and initial page load.",
-    "category": "Mini Music Player",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Mini music player\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Search\" in the mini player is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Play\" in the mini player is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC042",
-    "title": "Play control is disabled until a track is selected",
-    "description": "Verifies that playback cannot be started before selecting a track (basic guardrail for the player).",
-    "category": "Mini Music Player",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Mini music player\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Play\" in the mini player is disabled"
-      }
-    ]
-  },
-  {
-    "id": "TC043",
-    "title": "Search for a track and verify results list appears",
-    "description": "Verifies the search interaction returns visible results that can be selected.",
-    "category": "Mini Music Player",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Mini music player\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"jazz\" into the mini player search field"
-      },
-      {
-        "type": "action",
-        "description": "Click the mini player \"Search\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Search results\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Track result item\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC044",
-    "title": "Empty search input is handled gracefully",
-    "description": "Verifies searching with an empty query does not break the UI and provides a visible validation or no-results state.",
-    "category": "Mini Music Player",
-    "priority": "Low",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Mini music player\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the mini player search field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Enter a search\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC045",
-    "title": "Open AI chat widget and receive a response to a help question",
-    "description": "Verifies a user can open the floating AI chat widget, send a help question, and see an assistant response in the chat window.",
-    "category": "AI Chatbot",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"AI\" or \"Assistant\" is visible in the chat widget header"
-      },
-      {
-        "type": "action",
-        "description": "Type \"How do I start a co-watching room and invite friends?\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"How do I start a co-watching room and invite friends?\" is visible in the chat conversation"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify an assistant response message is visible in the chat conversation"
-      }
-    ]
-  },
-  {
-    "id": "TC046",
-    "title": "Send message using Enter key and receive assistant response",
-    "description": "Verifies the chat message can be sent via Enter key and an assistant response appears.",
-    "category": "AI Chatbot",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "action",
-        "description": "Type \"What are XP, streaks, and quests in CinePurr?\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Press Enter"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"What are XP, streaks, and quests in CinePurr?\" is visible in the chat conversation"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify an assistant response message is visible in the chat conversation"
-      }
-    ]
-  },
-  {
-    "id": "TC047",
-    "title": "Rate limit triggers warning when rapidly sending multiple requests",
-    "description": "Verifies that rapidly sending multiple messages triggers a visible rate limit warning.",
-    "category": "AI Chatbot",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Message 1\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Message 2\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Message 3\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"rate limit\" is visible in the chat widget"
-      }
-    ]
-  },
-  {
-    "id": "TC048",
-    "title": "After rate limit, further requests are blocked",
-    "description": "Verifies that once rate limited, the user is blocked from sending additional messages (e.g., disabled send or warning persists).",
-    "category": "AI Chatbot",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam A\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam B\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Spam C\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"rate limit\" is visible in the chat widget"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Can you respond now?\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Can you respond now?\" is not visible in the chat conversation"
-      }
-    ]
-  },
-  {
-    "id": "TC049",
-    "title": "Chat widget remains usable after closing and reopening during a session",
-    "description": "Verifies the floating chat widget can be closed and reopened and still accepts messages and displays responses.",
-    "category": "AI Chatbot",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"chat message input field\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the chat widget close button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"chat message input field\" is not visible"
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"chat message input field\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Help me find the study room features.\" into the chat message input field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify an assistant response message is visible in the chat conversation"
-      }
-    ]
-  },
-  {
-    "id": "TC050",
-    "title": "Empty message is not sent",
-    "description": "Verifies the chat does not send an empty message and shows no new user message bubble when Send is pressed with no text.",
-    "category": "AI Chatbot",
-    "priority": "Low",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/room\""
-      },
-      {
-        "type": "action",
-        "description": "Click the floating AI chat widget button to open it"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Send\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"rate limit\" is not visible in the chat widget"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"new outgoing message bubble\" is not visible"
-      }
-    ]
+    ],
+    "priority": "Low"
   }
 ]

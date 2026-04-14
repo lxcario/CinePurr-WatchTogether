@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { usePokemonTheme } from '@/components/PokemonThemeProvider';
-import { Film, TrendingUp, Clock, Calendar, Star, ArrowLeft, ExternalLink, RefreshCw, Play } from 'lucide-react';
+import { Film, TrendingUp, Clock, Calendar, Star, ArrowLeft, ExternalLink, RefreshCw, Play, Bookmark, BookmarkCheck } from 'lucide-react';
 import type { MovieItem } from '@/app/api/film-news/route';
 
 const TABS = [
@@ -27,6 +27,34 @@ export default function NewsPage() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<MovieItem | null>(null);
   const [watchingId, setWatchingId] = useState<number | null>(null);
+  const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
+
+  // Fetch user's watchlist on mount
+  useEffect(() => {
+    if (!session) return;
+    fetch('/api/watchlist')
+      .then(r => r.ok ? r.json() : [])
+      .then((items: Array<{ tmdbId: number; tmdbType: string }>) => {
+        setBookmarked(new Set(items.map(i => `${i.tmdbId}-${i.tmdbType}`)));
+      })
+      .catch(() => { /* ignore */ });
+  }, [session]);
+
+  const toggleWatchlist = async (movie: MovieItem) => {
+    if (!session) { router.push('/login?redirect=/news'); return; }
+    const key = `${movie.id}-movie`;
+    if (bookmarked.has(key)) {
+      await fetch(`/api/watchlist?tmdbId=${movie.id}&tmdbType=movie`, { method: 'DELETE' });
+      setBookmarked(prev => { const n = new Set(prev); n.delete(key); return n; });
+    } else {
+      await fetch('/api/watchlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tmdbId: movie.id, tmdbType: 'movie', title: movie.title, poster: movie.poster }),
+      });
+      setBookmarked(prev => new Set(prev).add(key));
+    }
+  };
 
   const startWatchParty = async (movie: MovieItem) => {
     if (!session) {
@@ -162,6 +190,19 @@ export default function NewsPage() {
               >
                 <ExternalLink size={14} /> View on TMDB
               </a>
+              <button
+                onClick={() => toggleWatchlist(selected)}
+                className={`inline-flex items-center gap-2 px-4 py-2 border-2 border-black dark:border-white font-bold text-sm transition-all shadow-[3px_3px_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:shadow-[4px_4px_0_rgba(0,0,0,1)] ${
+                  bookmarked.has(`${selected.id}-movie`)
+                    ? 'bg-yellow-400 text-black'
+                    : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+                title={bookmarked.has(`${selected.id}-movie`) ? 'Remove from watchlist' : 'Add to watchlist'}
+              >
+                {bookmarked.has(`${selected.id}-movie`)
+                  ? <><BookmarkCheck size={14} /> Saved</>
+                  : <><Bookmark size={14} /> Add to Watchlist</>}
+              </button>
               <button
                 onClick={() => startWatchParty(selected)}
                 disabled={watchingId === selected.id}
