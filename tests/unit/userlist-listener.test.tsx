@@ -14,10 +14,13 @@ const mockSocket = {
   connected: true,
 };
 
+const mockSubscribeCachedRoomUsers = vi.fn();
+const mockUnsubscribeCachedRoomUsers = vi.fn();
+
 vi.mock('@/hooks/useSocket', () => ({
   useSocket: () => ({ socket: mockSocket }),
   getCachedRoomUsers: () => [],
-  subscribeCachedRoomUsers: () => vi.fn(),
+  subscribeCachedRoomUsers: (...args: unknown[]) => mockSubscribeCachedRoomUsers(...args),
 }));
 
 // Mock PokemonThemeProvider to avoid context errors
@@ -46,48 +49,39 @@ vi.mock('lucide-react', () => ({
 describe('UserList Component Listener Stability', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockSubscribeCachedRoomUsers.mockImplementation((_roomId, listener) => {
+      listener([]);
+      return mockUnsubscribeCachedRoomUsers;
+    });
   });
 
-  it('should not re-bind the room:users_update listener when the users array changes', () => {
-    // We want to verify that when we receive a room:users_update event, 
-    // it updates the state, but does NOT trigger a re-render that causes the 
-    // useEffect to unbind (off) and rebind (on) the listener.
-
+  it('should update from the shared room-user cache without re-binding socket listeners', () => {
     const { rerender } = render(<UserList socket={mockSocket as any} roomId="test-room" hostId="host-1" />);
 
-    // Capture the registered callback
-    expect(mockSocketOn).toHaveBeenCalledWith('room:users_update', expect.any(Function));
-    const usersUpdateCallback = mockSocketOn.mock.calls.find(call => call[0] === 'room:users_update')?.[1];
-    
-    expect(usersUpdateCallback).toBeDefined();
+    expect(mockSubscribeCachedRoomUsers).toHaveBeenCalledWith('test-room', expect.any(Function));
+    expect(mockSocketOn).toHaveBeenCalledWith('connect', expect.any(Function));
 
-    // Reset mocks to count *new* binding attempts
+    const cacheUpdateCallback = mockSubscribeCachedRoomUsers.mock.calls[0]?.[1];
+    expect(cacheUpdateCallback).toBeDefined();
+
     mockSocketOn.mockClear();
     mockSocketOff.mockClear();
 
-    // Act
-    // Simulate receiving an update with 2 users
     act(() => {
-      usersUpdateCallback([
+      cacheUpdateCallback([
         { id: 'user-1', name: 'User 1', socketId: 'socket-1' },
         { id: 'user-2', name: 'User 2', socketId: 'socket-2' },
       ]);
     });
 
-    // The component should re-render with the new users.
-    // If we were using `users.length` in the dependency array (the bug),
-    // the effect would clean up, calling socket.off, and then socket.on again.
-    
-    // We expect 0 calls to socket.off because the useEffect shouldn't have fired again
-    expect(mockSocketOff).not.toHaveBeenCalledWith('room:users_update', expect.any(Function));
-    
-    // We expect 0 calls to socket.on because the effect shouldn't have fired again
-    expect(mockSocketOn).not.toHaveBeenCalledWith('room:users_update', expect.any(Function));
+    expect(screen.getByText('2 Online')).toBeInTheDocument();
+    expect(mockSocketOn).not.toHaveBeenCalled();
+    expect(mockSocketOff).not.toHaveBeenCalled();
 
-    // Force a re-render with the exact same props to simulate React Strict Mode or parent re-renders
     rerender(<UserList socket={mockSocket as any} roomId="test-room" hostId="host-1" />);
 
-    // Still should not re-bind because socket and roomId haven't changed
-    expect(mockSocketOff).not.toHaveBeenCalledWith('room:users_update', expect.any(Function));
+    expect(mockSocketOn).not.toHaveBeenCalled();
+    expect(mockSocketOff).not.toHaveBeenCalled();
+    expect(mockUnsubscribeCachedRoomUsers).not.toHaveBeenCalled();
   });
 });

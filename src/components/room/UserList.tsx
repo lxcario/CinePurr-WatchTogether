@@ -71,13 +71,13 @@ export const UserList: React.FC<UserListProps> = ({ socket, roomId, hostId, curr
   const handlePromoteCoHost = (e: React.MouseEvent, targetUserId: string) => {
     e.stopPropagation();
     if (!socket) return;
-    socket.emit('room:promote_cohost', { roomId, targetUserId });
+    socket.emit('room:set-cohost', { roomId, targetUserId, action: 'promote' });
   };
 
   const handleDemoteCoHost = (e: React.MouseEvent, targetUserId: string) => {
     e.stopPropagation();
     if (!socket) return;
-    socket.emit('room:demote_cohost', { roomId, targetUserId });
+    socket.emit('room:set-cohost', { roomId, targetUserId, action: 'demote' });
   };
 
   const handleUserClick = (e: React.MouseEvent, username: string) => {

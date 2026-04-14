@@ -414,38 +414,58 @@ export function registerRoomHandlers(io: Server, socket: Socket): void {
     logger.info(`[ROOM_DELETE] Room ${roomId} deleted by host ${effectiveUserId}`);
   });
 
+  const setCoHost = ({
+    roomId,
+    targetUserId,
+    action,
+  }: {
+    roomId: string;
+    targetUserId: string;
+    action: 'promote' | 'demote';
+  }) => {
+    const room = rooms.get(roomId);
+    if (!room) return;
+
+    const requester = room.users.find(u => u.socketId === socket.id);
+    if (!requester || requester.id !== room.hostId) {
+      socket.emit('room:error', { message: 'Only the host can manage co-hosts', code: 'UNAUTHORIZED' });
+      return;
+    }
+
+    if (action === 'promote') {
+      if (!room.coHostIds.includes(targetUserId)) {
+        room.coHostIds.push(targetUserId);
+      }
+    } else {
+      room.coHostIds = room.coHostIds.filter(id => id !== targetUserId);
+    }
+
+    io.to(roomId).emit('room:cohost_updated', { coHostIds: room.coHostIds });
+    const targetUser = room.users.find(u => u.id === targetUserId);
+    emitSystemMessage(
+      io,
+      roomId,
+      action === 'promote'
+        ? `${targetUser?.name || targetUserId} is now a co-host`
+        : `${targetUser?.name || targetUserId} is no longer a co-host`
+    );
+  };
+
   // ── room:set-cohost — Host promotes/demotes co-hosts ─────────
   socket.on(
     'room:set-cohost',
     ({ roomId, targetUserId, action }: { roomId: string; targetUserId: string; action: 'promote' | 'demote' }) => {
-      const room = rooms.get(roomId);
-      if (!room) return;
-
-      const requester = room.users.find(u => u.socketId === socket.id);
-      if (!requester || requester.id !== room.hostId) {
-        socket.emit('room:error', { message: 'Only the host can manage co-hosts', code: 'UNAUTHORIZED' });
-        return;
-      }
-
-      if (action === 'promote') {
-        if (!room.coHostIds.includes(targetUserId)) {
-          room.coHostIds.push(targetUserId);
-        }
-      } else {
-        room.coHostIds = room.coHostIds.filter(id => id !== targetUserId);
-      }
-
-      io.to(roomId).emit('room:cohost_updated', { coHostIds: room.coHostIds });
-      const targetUser = room.users.find(u => u.id === targetUserId);
-      emitSystemMessage(
-        io,
-        roomId,
-        action === 'promote'
-          ? `${targetUser?.name || targetUserId} is now a co-host`
-          : `${targetUser?.name || targetUserId} is no longer a co-host`
-      );
+      setCoHost({ roomId, targetUserId, action });
     }
   );
+
+  socket.on('room:promote_cohost', ({ roomId, targetUserId }: { roomId: string; targetUserId: string }) => {
+    setCoHost({ roomId, targetUserId, action: 'promote' });
+  });
+
+  socket.on('room:demote_cohost', ({ roomId, targetUserId }: { roomId: string; targetUserId: string }) => {
+    setCoHost({ roomId, targetUserId, action: 'demote' });
+  });
 
   // ── room:request-control — Viewer requests host control ──────
   socket.on('room:request-control', ({ roomId }: { roomId: string }) => {
