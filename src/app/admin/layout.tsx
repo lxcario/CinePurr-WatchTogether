@@ -1,10 +1,45 @@
-import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { isSuperAdmin } from '@/lib/security';
+import { isAdminUser } from '@/lib/security';
 import Link from 'next/link';
-import { BarChart3, Users, Monitor, Settings, LogOut, Activity } from 'lucide-react';
+import { BarChart3, Users, Monitor, Settings, LogOut } from 'lucide-react';
 import Logo from '@/components/Logo';
+
+function AccessDeniedPanel({
+  description,
+  primaryHref,
+  primaryLabel,
+}: {
+  description: string;
+  primaryHref: string;
+  primaryLabel: string;
+}) {
+  return (
+    <main className="min-h-screen bg-gray-50 text-black flex items-center justify-center p-6">
+      <div className="max-w-xl w-full bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8 space-y-4 text-center">
+        <div className="inline-flex px-3 py-1 bg-red-500 text-white border-2 border-black font-black uppercase text-xs tracking-wider">
+          access denied
+        </div>
+        <h1 className="text-3xl font-black uppercase tracking-tight">Insufficient permissions</h1>
+        <p className="text-sm font-mono text-gray-600">{description}</p>
+        <div className="flex items-center justify-center gap-3 pt-2">
+          <Link
+            href={primaryHref}
+            className="px-4 py-3 bg-black text-white border-2 border-black font-bold hover:bg-gray-800 transition-colors"
+          >
+            {primaryLabel}
+          </Link>
+          <Link
+            href="/"
+            className="px-4 py-3 bg-white text-black border-2 border-black font-bold hover:bg-gray-100 transition-colors"
+          >
+            Return Home
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}
 
 export default async function AdminLayout({
   children,
@@ -13,9 +48,24 @@ export default async function AdminLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  // Strictly enforce FOUNDER or PURR_ADMIN privileges. Normal ADMIN is rejected.
-  if (!session?.user || !isSuperAdmin((session.user as any).role)) {
-    redirect('/login');
+  if (!session?.user) {
+    return (
+      <AccessDeniedPanel
+        description="Sign in with an admin account to open the CinePurr control panel."
+        primaryHref="/login"
+        primaryLabel="Sign In"
+      />
+    );
+  }
+
+  if (!isAdminUser(session.user.role)) {
+    return (
+      <AccessDeniedPanel
+        description="You are signed in, but your account does not have admin access to the CinePurr control panel."
+        primaryHref="/login"
+        primaryLabel="Switch Account"
+      />
+    );
   }
 
   return (
@@ -97,7 +147,7 @@ export default async function AdminLayout({
           </div>
           <div className="min-w-0">
             <p className="font-bold text-sm truncate">{session.user?.name}</p>
-            <p className="text-xs font-mono text-purple-600 font-bold truncate">{(session.user as any).role}</p>
+            <p className="text-xs font-mono text-purple-600 font-bold truncate">{session.user.role}</p>
           </div>
         </div>
       </aside>

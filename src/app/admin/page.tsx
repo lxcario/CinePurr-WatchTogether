@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { Users, Monitor, MessageSquare, Activity, UserPlus, AlertTriangle } from 'lucide-react';
 import OverviewCharts from '@/components/admin/OverviewCharts';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,10 +51,34 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-6 animate-fade-in-up">
       <div>
-        <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">Platform Overview</h1>
+        <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">Admin Overview</h1>
         <p className="text-gray-500 font-mono text-sm bg-white p-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] inline-block">
           Aggregated system metrics and health data. Automatically updated on load.
         </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Link
+          href="/admin/system"
+          className="bg-white p-5 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+        >
+          <div className="text-xs font-black uppercase tracking-widest text-red-600 mb-2">Maintenance</div>
+          <h2 className="text-xl font-black uppercase mb-2">Maintenance Mode Controls</h2>
+          <p className="text-sm font-mono text-gray-600">
+            Toggle site-wide maintenance mode and review operational settings.
+          </p>
+        </Link>
+
+        <Link
+          href="/admin/rooms"
+          className="bg-white p-5 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+        >
+          <div className="text-xs font-black uppercase tracking-widest text-purple-600 mb-2">Broadcast</div>
+          <h2 className="text-xl font-black uppercase mb-2">Broadcast Tools</h2>
+          <p className="text-sm font-mono text-gray-600">
+            Send global broadcast messages and manage active rooms from one place.
+          </p>
+        </Link>
       </div>
 
       {/* High-level metrics */}

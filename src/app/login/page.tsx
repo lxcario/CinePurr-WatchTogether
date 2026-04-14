@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -12,11 +12,19 @@ import { useI18n } from '@/lib/i18n';
 import { motion, AnimatePresence } from 'motion/react';
 import { useFormRateLimit } from '@/hooks/useFormRateLimit';
 
+function getRememberedIdentifier() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  return localStorage.getItem('rememberedUsername') ?? '';
+}
+
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(() => getRememberedIdentifier());
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(() => getRememberedIdentifier().length > 0);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [shakeError, setShakeError] = useState(false);
@@ -37,20 +45,12 @@ export default function LoginPage() {
     lockoutMs: 120000, // 2 minute lockout
   });
 
-  // Load remembered username
-  useEffect(() => {
-    const remembered = localStorage.getItem('rememberedUsername');
-    if (remembered) {
-      setUsername(remembered);
-      setRememberMe(true);
-    }
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmedUsername = username.trim();
 
     // Check client-side rate limit
-    if (!recordAttempt()) {
+    if (!canSubmit || !recordAttempt()) {
       setError(isLockedOut
         ? `Too many attempts. Please wait ${lockoutTimeRemaining} seconds.`
         : 'Please slow down. Too many login attempts.');
@@ -64,14 +64,14 @@ export default function LoginPage() {
 
     // Save or remove remembered username
     if (rememberMe) {
-      localStorage.setItem('rememberedUsername', username);
+      localStorage.setItem('rememberedUsername', trimmedUsername);
     } else {
       localStorage.removeItem('rememberedUsername');
     }
 
     try {
       const result = await signIn('credentials', {
-        username,
+        username: trimmedUsername,
         password,
         redirect: false,
       });
@@ -197,7 +197,7 @@ export default function LoginPage() {
           {/* Username Field */}
           <div className="form-group">
             <label className="form-label text-black dark:text-white">
-              {t('username')}
+              Username or email
             </label>
             <div className={`relative transition-all duration-200 ${focusedField === 'username' ? 'scale-[1.02]' : ''}`}>
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -212,7 +212,8 @@ export default function LoginPage() {
                 className="w-full bg-white dark:bg-gray-800 border-4 border-black dark:border-gray-600 p-3 pl-10 text-black dark:text-white focus:outline-none focus:border-purple-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] font-mono transition-all duration-200"
                 required
                 disabled={isLoading}
-                placeholder="Enter your username"
+                autoComplete="username"
+                placeholder="Enter your username or email"
               />
             </div>
           </div>
