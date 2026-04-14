@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest",
+    "db:seed": "prisma db seed",
     "server": "ts-node --project tsconfig.server.json server/index.ts",
     "office": "ts-node --project tsconfig.server.json scripts/ai-office/office.ts",
     "server:build": "tsc --project tsconfig.server.json --outDir dist",

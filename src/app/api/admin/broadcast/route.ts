@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { isSuperAdmin } from '@/lib/security';
+import { getAdminBridgeSecret, getSocketServerAdminUrl } from '@/lib/adminBridge';
 import logger from '@/lib/logger';
 
 export async function POST(req: Request) {
@@ -19,10 +20,8 @@ export async function POST(req: Request) {
 
     // Forward the broadcast request to the custom socket server
     // Use internal URL for server-to-server communication
-    const socketUrl = process.env.SOCKET_SERVER_INTERNAL_URL || 'http://socket_server:4000';
-    
-    // We use NEXTAUTH_SECRET as a pre-shared key between Next.js and the socket server
-    const secret = process.env.NEXTAUTH_SECRET;
+    const socketUrl = getSocketServerAdminUrl();
+    const secret = getAdminBridgeSecret();
 
     const res = await fetch(`${socketUrl}/api/admin/broadcast`, {
       method: 'POST',

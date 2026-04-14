@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { isSuperAdmin } from '@/lib/security';
+import { getAdminBridgeSecret, getSocketServerAdminUrl } from '@/lib/adminBridge';
 import { isMaintenanceMode, setMaintenanceMode } from '@/lib/maintenance';
 import { friendsCache, SEARCH_CACHE } from '@/lib/cache';
 import logger from '@/lib/logger';
@@ -37,12 +38,12 @@ export async function POST(req: Request) {
       // If turning ON maintenance mode, send a global broadcast
       if (value === true) {
         try {
-          const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
+          const socketUrl = getSocketServerAdminUrl();
           await fetch(`${socketUrl}/api/admin/broadcast`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-              secret: process.env.NEXTAUTH_SECRET, 
+              secret: getAdminBridgeSecret(),
               message: 'SYSTEM MAINTENANCE: The site will be undergoing maintenance shortly. Please conclude your activities.' 
             }),
           });

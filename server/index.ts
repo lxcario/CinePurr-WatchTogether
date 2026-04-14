@@ -66,6 +66,10 @@ logger.info(
   `Starting socket server. NODE_ENV=${process.env.NODE_ENV}, LOG_LEVEL=${process.env.LOG_LEVEL}`
 );
 
+function getAdminApiSecret(): string {
+  return process.env.ADMIN_API_KEY || process.env.NEXTAUTH_SECRET || '';
+}
+
 // ============================================
 // DATABASE INITIALIZATION
 // ============================================
@@ -215,9 +219,10 @@ app.post('/api/online/batch', express.json(), (req: Request, res: Response) => {
 // ── Admin: Global Broadcast ─────────────────────────────────────
 app.post('/api/admin/broadcast', express.json(), (req: Request, res: Response) => {
   const { secret, message } = req.body;
-  
-  if (!process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'ADMIN_API_KEY not configured' });
-  if (secret !== process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'Unauthorized broadcast' });
+  const adminApiSecret = getAdminApiSecret();
+
+  if (!adminApiSecret) return res.status(403).json({ error: 'Admin bridge secret not configured' });
+  if (secret !== adminApiSecret) return res.status(403).json({ error: 'Unauthorized broadcast' });
 
   io.emit('chat:broadcast', {
     id: `broadcast-${Date.now()}`,
@@ -233,8 +238,9 @@ app.post('/api/admin/broadcast', express.json(), (req: Request, res: Response) =
 // ── Admin: Force-Close Room ─────────────────────────────────────
 app.delete('/api/admin/rooms/:roomId', express.json(), (req: Request, res: Response) => {
   const { secret } = req.body;
-  if (!process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'ADMIN_API_KEY not configured' });
-  if (secret !== process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'Unauthorized' });
+  const adminApiSecret = getAdminApiSecret();
+  if (!adminApiSecret) return res.status(403).json({ error: 'Admin bridge secret not configured' });
+  if (secret !== adminApiSecret) return res.status(403).json({ error: 'Unauthorized' });
 
   const roomId = req.params.roomId;
   io.to(roomId).emit('room:deleted', { message: 'This room has been forcibly closed by an Administrator.', roomId });
@@ -247,8 +253,9 @@ app.delete('/api/admin/rooms/:roomId', express.json(), (req: Request, res: Respo
 // ── Admin: AI Office Broadcast ──────────────────────────────────
 app.post('/api/admin/ai-office', express.json(), (req: Request, res: Response) => {
   const { secret, event } = req.body;
-  if (!process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'ADMIN_API_KEY not configured' });
-  if (secret !== process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'Unauthorized' });
+  const adminApiSecret = getAdminApiSecret();
+  if (!adminApiSecret) return res.status(403).json({ error: 'Admin bridge secret not configured' });
+  if (secret !== adminApiSecret) return res.status(403).json({ error: 'Unauthorized' });
 
   // Broadcast the AI Office event to all connected clients
   io.emit('ai-office:event', event);
@@ -258,8 +265,9 @@ app.post('/api/admin/ai-office', express.json(), (req: Request, res: Response) =
 // ── Admin: Update Room ──────────────────────────────────────────
 app.patch('/api/admin/rooms/:roomId', express.json(), async (req: Request, res: Response) => {
   const { secret, maxUsers } = req.body;
-  if (!process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'ADMIN_API_KEY not configured' });
-  if (secret !== process.env.ADMIN_API_KEY) return res.status(403).json({ error: 'Unauthorized' });
+  const adminApiSecret = getAdminApiSecret();
+  if (!adminApiSecret) return res.status(403).json({ error: 'Admin bridge secret not configured' });
+  if (secret !== adminApiSecret) return res.status(403).json({ error: 'Unauthorized' });
 
   const roomId = req.params.roomId;
   const room = rooms.get(roomId);

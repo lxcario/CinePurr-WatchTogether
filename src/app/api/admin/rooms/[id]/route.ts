@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
+import { getAdminBridgeSecret, getSocketServerAdminUrl } from '@/lib/adminBridge';
 import { isSuperAdmin } from '@/lib/security';
 import logger from '@/lib/logger';
 
@@ -29,8 +30,8 @@ export async function DELETE(
     });
 
     // 2. Notify the custom socket server to force disconnect all clients in the room
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
-    const secret = process.env.NEXTAUTH_SECRET;
+    const socketUrl = getSocketServerAdminUrl();
+    const secret = getAdminBridgeSecret();
 
     const res = await fetch(`${socketUrl}/api/admin/rooms/${roomId}`, {
       method: 'DELETE',
@@ -75,8 +76,8 @@ export async function PATCH(
     });
 
     // Notify custom socket server
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
-    const secret = process.env.NEXTAUTH_SECRET;
+    const socketUrl = getSocketServerAdminUrl();
+    const secret = getAdminBridgeSecret();
 
     await fetch(`${socketUrl}/api/admin/rooms/${roomId}`, {
       method: 'PATCH',

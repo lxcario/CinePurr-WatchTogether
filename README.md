@@ -56,15 +56,15 @@ Fill in the values you need, especially:
 - `DATABASE_URL`
 - `NEXTAUTH_SECRET`
 - `NEXTAUTH_URL`
+- `NEXT_PUBLIC_SOCKET_URL`
 - `TMDB_API_KEY`
 - `RESEND_API_KEY`
-- `NEXT_PUBLIC_SOCKET_URL`
 
 ### Run locally
 
 ```bash
 npx prisma migrate deploy
-npx prisma generate
+npm run db:seed
 npm run dev
 ```
 
@@ -76,11 +76,22 @@ npm run server
 
 Open `http://localhost:3000`.
 
+## Hackathon Demo Accounts
+
+These accounts are intentionally public and demo-only for the TestSprite hackathon flow. Change or remove them for any real deployment.
+
+| Purpose | Login | Password | Role |
+|---|---|---|---|
+| Primary admin | `Lucario` | `***REMOVED***` | `FOUNDER` |
+| Secondary admin | `Resque` | `***REMOVED***` | `PURR_ADMIN` |
+| Non-admin access check | `nonadmin.user@example.com` | `WrongPassword123!` | `USER` |
+
 ## Build Notes
 
 - `npm run build` now works as a local validation build even if `DATABASE_URL` or `NEXTAUTH_SECRET` are not set.
 - Full runtime behavior still requires real environment variables for auth, persistence, and background features.
 - If `DATABASE_URL` is present, the build wrapper runs the migration safety step and `prisma migrate deploy` before compiling.
+- Admin broadcast, force-close, and maintenance actions now use `ADMIN_API_KEY` when present and otherwise fall back to `NEXTAUTH_SECRET`, which makes single-machine local setup much less brittle.
 
 ## Repository Layout
 
