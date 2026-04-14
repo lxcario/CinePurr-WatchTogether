@@ -1,0 +1,30 @@
+node_modules
+.env
+.env.local
+/generated/prisma
+.next
+out
+dist
+*.tsbuildinfo
+prisma/dev.db
+prisma/*.db-journal
+dump.rdb
+redis-data.rdb
+.DS_Store
+.vscode
+.idea
+*.swp
+*.swo
+.agent/
+.codex-logs/
+cv/
+CinePurr_Presentation*.pptx
+create_presentation*.py
+Building Optimized Watch Party Websites.pdf
+cinepurr_fix_prompt (1).md
+audit-report.json
+CLAUDE.md
+prisma-debug-error.log
+Screenshot *.png
+testsprite_tests/tmp/
+scripts/ai-office/reports/

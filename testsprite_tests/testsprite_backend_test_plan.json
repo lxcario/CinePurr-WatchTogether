@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "post api rooms create room with valid authorization",
+    "description": "Test creating a room using POST /api/rooms with valid Authorization header and valid request body. Verify response status 200 and returned Room object contains expected fields like id, inviteCode, hostId, and maxUsers."
+  },
+  {
+    "id": "TC002",
+    "title": "patch api rooms update room as host user",
+    "description": "Test updating a room using PATCH /api/rooms/[id] with Authorization header of the host user and valid update fields in the body. Verify response status 200 and returned Room object reflects updated maxUsers and description."
+  },
+  {
+    "id": "TC003",
+    "title": "patch api rooms update room as non host user forbidden",
+    "description": "Test updating a room using PATCH /api/rooms/[id] with Authorization header of a non-host user. Verify response status 403 Forbidden to ensure only host can update the room."
+  },
+  {
+    "id": "TC004",
+    "title": "get api rooms recommendations with valid limit",
+    "description": "Test fetching room recommendations using GET /api/rooms/recommendations with a valid numeric limit query parameter. Verify response status 200 and response contains an array of recommended room summaries."
+  },
+  {
+    "id": "TC005",
+    "title": "get api rooms recommendations with invalid limit",
+    "description": "Test fetching room recommendations using GET /api/rooms/recommendations with an invalid non-numeric limit query parameter. Verify response status 400 Bad Request."
+  },
+  {
+    "id": "TC006",
+    "title": "socket player sync with valid authentication",
+    "description": "Test connecting to Socket.IO server with valid session cookie or Authorization token and emitting 'player:sync' event with valid payload. Verify server broadcasts 'player:update' event with authoritative position and serverTimestamp to room members."
+  },
+  {
+    "id": "TC007",
+    "title": "socket room ping with valid payload",
+    "description": "Test emitting 'room:ping' event over Socket.IO with valid clientTimestamp payload. Verify receiving 'room:pong' event with serverTimestamp and correct clock offset computation."
+  },
+  {
+    "id": "TC008",
+    "title": "post api quests daily with valid progress",
+    "description": "Test submitting daily quest progress using POST /api/quests/daily with valid Authorization header and body containing positive progress number. Verify response status 200 and updated DailyQuest progress and XP awarded."
+  },
+  {
+    "id": "TC009",
+    "title": "post api friends accept with valid request id",
+    "description": "Test accepting a friend request using POST /api/friends/accept with valid Authorization header and valid requestId in the body. Verify response status 200 and returned friendship object with friendId and status 'accepted'."
+  },
+  {
+    "id": "TC010",
+    "title": "post api notifications send notification with valid data",
+    "description": "Test sending an application notification using POST /api/notifications with valid Authorization header and body containing title, message, and targetUserId. Verify response status 200 and returned Notification object. Also verify server emits Socket.IO 'notification' event to targetUserId socket(s) with the Notification payload."
+  }
+]
