@@ -69,3 +69,4 @@ def test_user_registration_with_valid_and_invalid_email():
             assert False, f"Response for invalid email '{invalid_email}' is not a valid JSON"
 
 test_user_registration_with_valid_and_invalid_email()
+

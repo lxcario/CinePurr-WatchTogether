@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -36,7 +37,7 @@ async def run_test():
         # -> Navigate to /login (https://cinepurr.me/login)
         await page.goto("https://cinepurr.me/login")
         
-        # -> Type 'Lucario' into the username field (index 563), type '***REMOVED***' into the password field (index 564), then click the 'Sign In' button (index 569).
+        # -> Type 'Lucario' into the username field (index 563), type os.environ.get('DEMO_PASSWORD', 'demo_pass') into the password field (index 564), then click the 'Sign In' button (index 569).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -45,7 +46,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -84,7 +85,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -106,7 +107,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -131,3 +132,4 @@ async def run_test():
 
 asyncio.run(run_test())
     
+

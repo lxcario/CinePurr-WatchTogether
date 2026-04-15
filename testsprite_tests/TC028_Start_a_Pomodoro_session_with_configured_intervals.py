@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -42,7 +43,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -73,3 +74,4 @@ async def run_test():
 
 asyncio.run(run_test())
     
+

@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -33,7 +34,7 @@ async def run_test():
         # -> Navigate to https://cinepurr.me
         await page.goto("https://cinepurr.me")
         
-        # -> Fill the username field with 'Lucario', fill the password field with '***REMOVED***', then click the Sign In button to submit the login form.
+        # -> Fill the username field with 'Lucario', fill the password field with os.environ.get('DEMO_PASSWORD', 'demo_pass'), then click the Sign In button to submit the login form.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div/div/input').nth(0)
@@ -42,7 +43,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -55,10 +56,10 @@ async def run_test():
         elem = frame.locator('xpath=/html/body/div[2]/main/div[8]/div/div[3]/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Navigate to /login and perform the final login attempt using username 'Lucario' and password '***REMOVED***' (submit using Enter). After login, verify the URL contains '/room' and continue with adding the test video URL to the queue.
+        # -> Navigate to /login and perform the final login attempt using username 'Lucario' and password os.environ.get('DEMO_PASSWORD', 'demo_pass') (submit using Enter). After login, verify the URL contains '/room' and continue with adding the test video URL to the queue.
         await page.goto("https://cinepurr.me/login")
         
-        # -> Enter username 'Lucario' into input 1378, enter password '***REMOVED***' into input 1379, and click the Sign In button (index 1384) to perform the final login attempt.
+        # -> Enter username 'Lucario' into input 1378, enter password os.environ.get('DEMO_PASSWORD', 'demo_pass') into input 1379, and click the Sign In button (index 1384) to perform the final login attempt.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -67,7 +68,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -91,3 +92,4 @@ async def run_test():
 
 asyncio.run(run_test())
     
+

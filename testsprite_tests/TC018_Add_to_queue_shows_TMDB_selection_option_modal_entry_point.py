@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -33,7 +34,7 @@ async def run_test():
         # -> Navigate to https://cinepurr.me
         await page.goto("https://cinepurr.me")
         
-        # -> Fill the username field (index 613) with 'Lucario', fill the password field (index 625) with '***REMOVED***', then click the 'Sign In' button (index 639).
+        # -> Fill the username field (index 613) with 'Lucario', fill the password field (index 625) with os.environ.get('DEMO_PASSWORD', 'demo_pass'), then click the 'Sign In' button (index 639).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div/div/input').nth(0)
@@ -42,7 +43,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -52,7 +53,7 @@ async def run_test():
         # -> Navigate to /login (https://cinepurr.me/login) to reach the login form so credentials can be (re)submitted.
         await page.goto("https://cinepurr.me/login")
         
-        # -> Fill the username field (index 1308) with 'Lucario', fill the password field (index 1309) with '***REMOVED***', then click the 'Sign In' button (index 1314).
+        # -> Fill the username field (index 1308) with 'Lucario', fill the password field (index 1309) with os.environ.get('DEMO_PASSWORD', 'demo_pass'), then click the 'Sign In' button (index 1314).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -61,7 +62,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
@@ -86,3 +87,4 @@ async def run_test():
 
 asyncio.run(run_test())
     
+

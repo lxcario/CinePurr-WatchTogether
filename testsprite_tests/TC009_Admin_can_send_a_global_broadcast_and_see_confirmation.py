@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -33,7 +34,7 @@ async def run_test():
  
         # -> Navigate to https://cinepurr.me
         await page.goto("https://cinepurr.me")
-        # -> Fill username with 'Resque' into element [1297], fill password with '***REMOVED***' into element [1307], then click the Sign In button [1319]. ASSERTION: After filling, the Sign In action will be attempted.
+        # -> Fill username with 'Resque' into element [1297], fill password with os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin') into element [1307], then click the Sign In button [1319]. ASSERTION: After filling, the Sign In action will be attempted.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -41,7 +42,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin'))
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/button').nth(0)
@@ -51,7 +52,7 @@ async def run_test():
         # Click element
         elem = frame.locator('xpath=/html/body/div/div/div/div/p/a').nth(0)
         await asyncio.sleep(3); await elem.click()
-        # -> Input username 'Resque' into element [2310], input password '***REMOVED***' into element [2322], then click the Sign In button [2336].
+        # -> Input username 'Resque' into element [2310], input password os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin') into element [2322], then click the Sign In button [2336].
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div/div/input').nth(0)
@@ -59,7 +60,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin'))
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[2]/main/div[6]/form/button').nth(0)
@@ -74,7 +75,7 @@ async def run_test():
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/main/nav/div/div/a').nth(0)
         await asyncio.sleep(3); await elem.click()
-        # -> Fill username 'Lucario' into element [3132], fill password '***REMOVED***' into element [3144], then click the Sign In button [3158].
+        # -> Fill username 'Lucario' into element [3132], fill password os.environ.get('DEMO_PASSWORD', 'demo_pass') into element [3144], then click the Sign In button [3158].
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -82,7 +83,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/button').nth(0)
@@ -97,7 +98,7 @@ async def run_test():
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/main/nav/div/div/a').nth(0)
         await asyncio.sleep(3); await elem.click()
-        # -> Fill the username 'Resque' into element [3936], fill the password '***REMOVED***' into element [3948], then click the Sign In button [3962] to attempt admin login.
+        # -> Fill the username 'Resque' into element [3936], fill the password os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin') into element [3948], then click the Sign In button [3962] to attempt admin login.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div/div/input').nth(0)
@@ -105,7 +106,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_ADMIN_PASSWORD', 'demo_admin'))
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/button').nth(0)
@@ -126,3 +127,4 @@ async def run_test():
 
 asyncio.run(run_test())
     
+

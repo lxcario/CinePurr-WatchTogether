@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -47,7 +48,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         # -> Click the 'Sign Up' button (index 987), wait for the SPA redirect, then verify we land on the /login page.
         frame = context.pages[-1]
@@ -75,7 +76,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         # -> Fill username, email, and password (indices 1606, 1607, 1608), click Sign Up (index 1614), then wait and verify the app redirects to /login.
         frame = context.pages[-1]
@@ -91,7 +92,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         # -> Click the 'Sign Up' button (index 1614), wait for the SPA redirect, then verify the app navigates to /login.
         frame = context.pages[-1]
@@ -122,7 +123,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         # -> Click the 'Sign Up' button (index 2740), wait for the SPA redirect (~1.5-3s), then verify the app navigates to /login (per TC012).
         frame = context.pages[-1]

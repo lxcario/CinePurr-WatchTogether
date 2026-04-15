@@ -1,3 +1,4 @@
+import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -50,7 +51,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         # -> Fill the birthdate field with '2000-01-15' and click 'Sign Up' to submit the registration form.
         frame = context.pages[-1]
@@ -72,7 +73,7 @@ async def run_test():
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Fill the login form with username 'Lucario' and password '***REMOVED***', then click 'Sign In' to log in.
+        # -> Fill the login form with username 'Lucario' and password os.environ.get('DEMO_PASSWORD', 'demo_pass'), then click 'Sign In' to log in.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
@@ -81,7 +82,7 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
+        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
         
         frame = context.pages[-1]
         # Click element
