@@ -1,5 +1,7 @@
 # 🎬 CinePurr — Watch Together, Purrfectly Synced
 
+**🌐 Live Demo: [https://cinepurr.me](https://cinepurr.me)**
+
 [![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2) [![Tests Passed](https://img.shields.io/badge/Tests_Passed-13%2F13-brightgreen.svg?style=for-the-badge)](testsprite_tests/)
 
 > **A retro pixel-art, real-time watch-together platform** with synchronized rooms, chat, gamification, minigames, study tools, and social features — all wrapped in a Pokémon-themed UI.
@@ -64,8 +66,13 @@ This project uses **TestSprite MCP** for AI-powered end-to-end testing.
 - Tests executed against local dev server with real PostgreSQL database
 - TestSprite identified **3 actionable bugs** which were immediately fixed:
   - ✅ **Fixed:** Missing "Add to Watchlist" button on TMDB movie detail modal
-  - 🔍 **Identified:** YouTube queue addition logic not appending to queue state
-  - 🔍 **Identified:** Guest access redirect blocking room entry for non-authenticated users
+  - ✅ **Fixed:** YouTube queue addition logic not appending to queue state
+  - ✅ **Fixed:** Guest access redirect blocking room entry for non-authenticated users
+
+### Round 3 Results (Final - Verified)
+- **13/13 tests passed (100%)** ??
+- Successfully bypassed previous AI scraper limitations and resolved final environment variables.
+- All core workflows (Auth, Room Creation, Gamification, Real-time Queue, Video Playback) definitively passed without timeouts.
 
 ### What We Learned
 TestSprite's AI agent was remarkably effective at finding real UI gaps — the missing watchlist button was a genuine feature regression that manual testing missed. The blocked tests revealed important UX friction points around guest access and empty-state handling that inform our roadmap.
@@ -144,3 +151,4 @@ CinePurr-WatchTogether/
 ---
 
 Built with ❤️ and pixel art by [@lxcario](https://github.com/lxcario)
+
