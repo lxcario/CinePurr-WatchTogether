@@ -6,6 +6,7 @@
 
 > **A retro pixel-art, real-time watch-together platform** with synchronized rooms, chat, gamification, minigames, study tools, and social features — all wrapped in a Pokémon-themed UI.
 
+> ⚠️ **Disclaimer / Fair Use:** CinePurr is an educational prototype built exclusively for the TestSprite Hackathon S2. This project is strictly non-profit and not intended for commercial operations. All Pokémon assets, characters, and third-party movie streams are used under Fair Use for technical demonstration purposes only. All intellectual property rights belong to their respective original owners (Nintendo, The Pokémon Company, etc.). Any optional donations are strictly voluntary support for the developer's time and are not payments for access to copyrighted content or services.
 
 ## 🧪 TestSprite Integration (Hackathon Submission)
 
