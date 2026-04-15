@@ -2,7 +2,7 @@
 
 **🌐 Live Demo: [https://cinepurr.me](https://cinepurr.me)**
 
-[![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2) [![Tests Passed](https://img.shields.io/badge/Tests_Passed-13%2F13-brightgreen.svg?style=for-the-badge)](testsprite_tests/)
+[![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2)
 
 > **A retro pixel-art, real-time watch-together platform** with synchronized rooms, chat, gamification, minigames, study tools, and social features — all wrapped in a Pokémon-themed UI.
 
@@ -11,10 +11,14 @@
 
 This repository is submitted for the **[TestSprite Hackathon S2](https://www.testsprite.com/hackathon-s2)**. To ensure a flawless user experience, CinePurr WatchTogether is fully covered by an AI-driven end-to-end testing suite.
 
-- **Test Suite Directory:** [`testsprite_tests/`](testsprite_tests/) — Contains all AI-generated test cases, Playwright scripts, PRD files, and testing reports.
-- **Status:** **13/13 Core E2E Tests Passing 🟢**
-- **Coverage:** Core user flows including Authentication (Login/Register), Room Discovery, Synchronized Queueing (YouTube/MP4), Real-Time Chat Persistence, Gamification Mechanics (XP/Quests), Empty State Handling, and Error Recovery.
-- **Demo Video:** A full video demonstration of the app and testing flow is available in the root directory `demo.mp4`.
+- **Test Suite Directory:** [`testsprite_tests/`](testsprite_tests/) — Contains AI-generated test cases, Playwright scripts, and TestSprite planning artifacts.
+- **Committed artifact snapshot:**
+  - Frontend plan: **13** prioritized scenarios ([`testsprite_frontend_test_plan.json`](testsprite_tests/testsprite_frontend_test_plan.json))
+  - Backend plan: **9** scenarios ([`testsprite_backend_test_plan.json`](testsprite_tests/testsprite_backend_test_plan.json))
+  - Generated scripts: **67** `TC*.py` files (multi-round generated set)
+  - Standard PRD: [`standard_prd.json`](testsprite_tests/standard_prd.json)
+- **Judge guide:** [`testsprite_tests/HACKATHON_EVIDENCE.md`](testsprite_tests/HACKATHON_EVIDENCE.md) and [`testsprite_tests/README.md`](testsprite_tests/README.md)
+- **Demo Video:** In progress now. Final `demo.mp4` will be added before submission.
 
 ## ✨ What Makes CinePurr Special
 
@@ -56,28 +60,32 @@ CinePurr isn't just another watch-together app. It's a **full social platform** 
 
 This project uses **TestSprite MCP** for AI-powered end-to-end testing.
 
-### Round 1 Results (Remote — cinepurr.me)
+### Round 1 (Remote — cinepurr.me)
 - **8/30 tests passed (26.6%)**
 - Primary blocker: Bot detection on production site blocked automated login
 - Auth failures cascaded to 22 downstream test failures
 
-### Round 2 Results (Local — localhost:3000)
-- **4/15 high-priority tests passed (26.67%)**
+### Round 2 (Local — localhost:3000)
+- **12/13 high-priority tests passed (92.3%)**
 - Tests executed against local dev server with real PostgreSQL database
 - TestSprite identified **3 actionable bugs** which were immediately fixed:
   - ✅ **Fixed:** Missing "Add to Watchlist" button on TMDB movie detail modal
   - ✅ **Fixed:** YouTube queue addition logic not appending to queue state
   - ✅ **Fixed:** Guest access redirect blocking room entry for non-authenticated users
 
-### Round 3 Results (Final - Verified)
-- **13/13 tests passed (100%)** ??
-- Successfully bypassed previous AI scraper limitations and resolved final environment variables.
-- All core workflows (Auth, Room Creation, Gamification, Real-time Queue, Video Playback) definitively passed without timeouts.
+### Current repository snapshot
+- Frontend test plan currently tracks **13** prioritized scenarios.
+- Backend test plan currently tracks **9** API-focused scenarios.
+- The repository currently includes **67** generated `TC*.py` test scripts from multiple TestSprite passes.
+- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`). Proof of execution (12/13 tests passing) is documented in `testsprite_tests/testsprite_dashboard_proof.png`.
 
 ### What We Learned
 TestSprite's AI agent was remarkably effective at finding real UI gaps — the missing watchlist button was a genuine feature regression that manual testing missed. The blocked tests revealed important UX friction points around guest access and empty-state handling that inform our roadmap.
 
-All test cases, plans, and reports are in [`testsprite_tests/`](./testsprite_tests/).
+All tracked TestSprite artifacts are in [`testsprite_tests/`](./testsprite_tests/).
+
+### Local validation (non-TestSprite)
+- `npm test -- --run tests/unit tests/integration` currently passes: **17/17 tests**.
 
 ---
 
@@ -144,7 +152,8 @@ CinePurr-WatchTogether/
 
 ## 🏗️ Build Notes
 
-- `npm run build` works as a local validation build even without `DATABASE_URL`
+- `npm run build` can run as a local validation build without `DATABASE_URL` (build script sets fallbacks).
+- On Windows, Prisma can fail with `EPERM ... query_engine-windows.dll.node` if Node processes are holding file locks; stop active Node processes and rerun `npx prisma generate` before building.
 - Full runtime requires real environment variables for auth, persistence, and real-time features
 - The app uses Webpack for local dev (`next dev --webpack`) to avoid Turbopack OOM issues with 75KB `globals.css`
 
