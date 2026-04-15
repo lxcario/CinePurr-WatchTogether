@@ -33,68 +33,19 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Click the 'CREATE ROOM' button to start creating a room so we can test chat functionality.
+        # -> Dismiss the welcome modal by clicking the 'Skip' button so the room list and chat UI are accessible.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div[1]/div[1]/div/div[3]/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click the 'CREATE ROOM' button to start creating a room so we can access the chat input.
+        # -> Click the public room 'Resque's Room' in the server browser (use element index 235) to enter the room, then wait for the chat UI to load.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div/div/div[3]/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Sign in using the provided credentials (username: Lucario, password: ***REMOVED***) so I can access the room list and then find a room to send a chat message.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Sign in using username 'Lucario' and password '***REMOVED***' by filling the inputs and clicking the Sign In button.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Fill the room name with a test name and submit the CREATE ROOM form to enter the room.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div/div/div[3]/div[3]/form/div/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Chat Test Room')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div/div/div[3]/div[3]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Fill the chat input with 'Message to persist in history', send it, wait for the UI to update, then extract/verify that the message appears in the chat history.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[4]/div/div/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Message to persist in history')
-        
-        # -> Fill the chat input with 'Message to persist in history', send it, wait for the UI to update, then extract the chat history and verify the message appears.
+        # -> Fill the chat input with 'Message to persist in history', send it (press Enter), wait for the UI to update, and locate the message in the chat history to verify it appears.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[4]/div/div/form/div/input').nth(0)

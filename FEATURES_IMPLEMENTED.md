@@ -8,7 +8,7 @@ Last updated: March 2026 (v1.1+)
 
 ### Core Playback
 - **YouTube IFrame sync** — host-authority model, timestamp interpolation, drift correction
-- **MP4 / direct URL** — play any public MP4 or HLS stream
+- **Movie and Films** — Watch whatever film or movie you want
 - **Live TV / IPTV** — proxy-routed IPTV stream support
 - **Host & co-host controls** — play, pause, seek, change video; co-hosts have full player access
 - **Co-host promotion / demotion** — host can assign/revoke co-host status; blue CO-HOST badge in user list
@@ -17,13 +17,12 @@ Last updated: March 2026 (v1.1+)
 - **Max users limit** — configurable per room (default 50)
 - **Public / private rooms** — private rooms require invite link
 - **Invite code** — unique join link, join via `/join/[code]`
-- **Server browser** — discover public rooms on the homepage
 
 ### Video Search
 - **TMDB movie search** — poster, overview, year, cast
 - **TMDB TV search** — with episode picker (season + episode selector)
 - **YouTube URL paste** — direct URL support
-- **TMDB watchlist bookmark** — save/unsave any movie or TV result to personal watchlist from search modal
+(you can only do those on the rooms. Not on the  home page.
 
 ### Queue System
 - **Add to queue** — any user can suggest videos
@@ -35,8 +34,6 @@ Last updated: March 2026 (v1.1+)
 - **Real-time chat** — sub-100ms delivery via Socket.io
 - **Chat history** — last 50 messages fetched on room join
 - **Typing indicators** — "x is typing…" banner
-- **Message reactions** — emoji reactions on individual messages
-- **Floating video reactions** — emoji floats over the video for all viewers
 - **Rate limiting** — 10 messages / 10 s, 3 reactions / 1 s
 
 ---
@@ -46,7 +43,6 @@ Last updated: March 2026 (v1.1+)
 ### Friends
 - **Friend requests** — send, accept, decline
 - **Friends list** — with online status indicator
-- **Now Watching** — live "🎬 Now Watching" link per friend (reads socket server presence)
 - **Remove friends**
 
 ### Direct Messages
@@ -54,10 +50,6 @@ Last updated: March 2026 (v1.1+)
 - **Unread badge** — per conversation
 - **Persistent history** — stored in `DirectMessage` table
 
-### Groups / Communities
-- **Create & join groups** — named communities with icon and description
-- **Group rooms** — rooms associated with a group
-- **Member roles** — MEMBER, MODERATOR, ADMIN
 
 ### Notifications
 - **In-app notification bell** — unread count badge
@@ -166,20 +158,6 @@ All games use a unified **Game Boy** shell (olive screen, D-pad, A/B buttons, sc
 
 ---
 
-## 🕰️ Watch History & Watchlist
-
-### Watch History
-- **Auto-logged** — every `room:change_video` event saves an entry for the triggering user
-- **History window** — YouTube thumbnail, title, date (Today / Yesterday / N days ago), room rejoin link
-- **Clear all** button
-
-### Personal Watchlist
-- **Save from search** — Bookmark/BookmarkCheck button on any TMDB movie or TV result
-- **Watchlist window** — 2-column poster grid with filter tabs (All / Movies / Shows)
-- **Remove** — hover overlay with remove button
-- **TMDB poster images** proxied through Next.js image optimisation
-
----
 
 ## 📚 Study Room (`/study`)
 
@@ -231,14 +209,6 @@ Theme colour applied to: dock, borders, XP bars, buttons, window headers, glow e
 ### Fun Effects
 - Floating particles background
 - Confetti bursts on achievements
-
----
-
-## 📰 Film News (`/news`)
-
-- Latest movie & TV news pulled from TMDB
-- Poster images proxied through Next.js Image
-- Displayed on homepage widget + full `/news` page
 
 ---
 
@@ -351,43 +321,8 @@ Theme colour applied to: dock, borders, XP bars, buttons, window headers, glow e
   - Play button for top video
   - Pixel-art voting cards
 
-#### 8. **Room Discovery & Recommendations** ✅
-- **API:** `/api/rooms/recommendations`
-- **Features:**
-  - Trending rooms (most active)
-  - Recent rooms (last 2 hours)
-  - Friends watching (ready for integration)
-  - Category-based recommendations
-
-#### 9. **Scheduled Watch Parties** ✅
-- **API:** `/api/rooms/scheduled` (GET/POST)
-- **Database:** `ScheduledRoom` model
-- **Features:**
-  - Schedule rooms for future dates
-  - RSVP system
-  - Countdown timers
-  - Reminder notifications (ready)
-
-#### 10. **Room Templates** ✅
-- **Component:** `RoomTemplates.tsx`
-- **Templates:**
-  - 🎬 Movie Night (20 users, public)
-  - 📚 Study Session (5 users, private)
-  - 🎉 Party Room (50 users, public)
-  - 🎌 Anime Club (15 users, public)
-  - 🌙 Chill Vibes (10 users, public)
-- **Integration:** Create room form
 
 ### 👥 Social Features
-
-#### 11. **Groups/Communities** ✅
-- **API:** `/api/groups` (GET/POST)
-- **Database:** `Group`, `GroupMember` models
-- **Features:**
-  - Create/join groups
-  - Group-specific rooms
-  - Member roles (MEMBER, MODERATOR, ADMIN)
-  - Group icons and descriptions
 
 #### 12. **Notification Center** ✅
 - **Location:** Navbar (bell icon)
@@ -442,10 +377,7 @@ All components feature:
 - `/api/activity` - Activity feed
 - `/api/quests/daily` - Daily quests
 - `/api/challenges` - Watch challenges
-- `/api/rooms/recommendations` - Room discovery
-- `/api/rooms/scheduled` - Scheduled rooms
 - `/api/rooms/vote` - Video queue voting
-- `/api/groups` - Groups/communities
 - `/api/notifications` - Notification system
 
 ### New Components:
@@ -457,15 +389,12 @@ All components feature:
 - `components/engagement/Challenges.tsx`
 - `components/engagement/NotificationCenter.tsx`
 - `components/room/VideoQueueVoting.tsx`
-- `components/room/RoomTemplates.tsx`
 
 ### New Pages:
 - `/stats` - Personal stats dashboard
 
 ### Database Models Added:
 - `Activity` - Activity feed entries
-- `ScheduledRoom` - Scheduled watch parties
-- `Group` & `GroupMember` - Communities
 - `RoomVote` - Video queue voting
 - `DailyQuest` - Daily quest progress
 - `ChallengeProgress` - Challenge tracking
@@ -507,7 +436,6 @@ All components feature:
 3. **Social:** Leaderboards, activity feed, notifications
 4. **Competition:** Multiple leaderboard types
 5. **Achievement:** Badge system + XP rewards
-6. **Discovery:** Room recommendations
 7. **Habit:** Daily streaks + daily quests
 
 ## 📈 Expected Impact

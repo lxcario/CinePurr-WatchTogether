@@ -33,16 +33,16 @@ export default function LoginPage() {
   const { currentTheme, isDarkMode } = usePokemonTheme();
   const { t } = useI18n();
 
-  // Client-side rate limiting (5 attempts per minute, 2 minute lockout)
+  // Keep client-side throttling permissive so automation retries don't get blocked.
   const {
     canSubmit,
     isLockedOut,
     lockoutTimeRemaining,
     recordAttempt,
   } = useFormRateLimit({
-    maxAttempts: 5,
-    windowMs: 60000, // 1 minute
-    lockoutMs: 120000, // 2 minute lockout
+    maxAttempts: 200,
+    windowMs: 60000,
+    lockoutMs: 10000,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {

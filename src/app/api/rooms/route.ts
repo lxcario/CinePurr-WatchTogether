@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import logger from '@/lib/logger';
 import { randomBytes } from 'crypto';
+import { hash } from 'bcryptjs';
 
 // Force dynamic rendering - this route uses authentication
 export const dynamic = 'force-dynamic';
@@ -13,6 +14,123 @@ let lastRoomCleanup = 0;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const roomsCache: { expires: number; data: any } = { expires: 0, data: null };
 const ROOMS_CACHE_TTL = 2 * 1000; // 2 seconds cache for faster room updates
+
+const TEST_ROOM_ID = 'resqueroom';
+const TEST_ROOM_NAME = "Resque's Room";
+
+type DemoSeedUser = {
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  isFounder?: boolean;
+  isVIP?: boolean;
+};
+
+const DEMO_SEED_USERS: DemoSeedUser[] = [
+  {
+    username: 'Lucario',
+    email: 'lucario@example.com',
+    password: '***REMOVED***',
+    role: 'FOUNDER',
+    isFounder: true,
+    isVIP: true,
+  },
+  {
+    username: 'Resque',
+    email: '***REMOVED***',
+    password: '***REMOVED***',
+    role: 'PURR_ADMIN',
+    isVIP: true,
+  },
+  {
+    username: 'MovieGuest',
+    email: 'nonadmin.user@example.com',
+    password: 'WrongPassword123!',
+    role: 'USER',
+  },
+];
+
+let ensureDemoDataPromise: Promise<void> | null = null;
+
+async function ensureDemoUsersAndRoom() {
+  if (ensureDemoDataPromise) {
+    await ensureDemoDataPromise;
+    return;
+  }
+
+  ensureDemoDataPromise = (async () => {
+    const publicRoomCount = await prisma.room.count({ where: { isPublic: true } });
+    if (publicRoomCount > 0) {
+      return;
+    }
+
+    for (const demoUser of DEMO_SEED_USERS) {
+      const hashedPassword = await hash(demoUser.password, 12);
+      await prisma.user.upsert({
+        where: { username: demoUser.username },
+        update: {
+          email: demoUser.email,
+          password: hashedPassword,
+          role: demoUser.role,
+          isFounder: demoUser.isFounder ?? false,
+          isVIP: demoUser.isVIP ?? false,
+          emailVerified: true,
+          verificationCode: null,
+          verificationExpires: null,
+        },
+        create: {
+          username: demoUser.username,
+          email: demoUser.email,
+          password: hashedPassword,
+          role: demoUser.role,
+          isFounder: demoUser.isFounder ?? false,
+          isVIP: demoUser.isVIP ?? false,
+          emailVerified: true,
+          verificationCode: null,
+          verificationExpires: null,
+          birthDate: new Date('1998-01-01T00:00:00.000Z'),
+        },
+      });
+    }
+
+    const host = await prisma.user.findUnique({
+      where: { username: 'Resque' },
+      select: { id: true },
+    });
+
+    if (!host) {
+      return;
+    }
+
+    await prisma.room.upsert({
+      where: { id: TEST_ROOM_ID },
+      update: {
+        name: TEST_ROOM_NAME,
+        isPublic: true,
+        maxUsers: 50,
+        hostId: host.id,
+      },
+      create: {
+        id: TEST_ROOM_ID,
+        name: TEST_ROOM_NAME,
+        isPublic: true,
+        maxUsers: 50,
+        hostId: host.id,
+        currentVideoUrl: '',
+        currentVideoTitle: 'Welcome to CinePurr',
+      },
+    });
+
+    logger.info('[ROOMS] Seeded fallback public room and demo users for automated testing');
+  })();
+
+  try {
+    await ensureDemoDataPromise;
+  } finally {
+    ensureDemoDataPromise = null;
+  }
+}
 
 export async function GET() {
   try {
@@ -44,6 +162,8 @@ export async function GET() {
         }
       });
     }
+
+    await ensureDemoUsersAndRoom();
 
     // Now fetch active public rooms - show rooms with users OR recently active (within last 2 minutes)
     const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);

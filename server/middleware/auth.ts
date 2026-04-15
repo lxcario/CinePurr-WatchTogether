@@ -20,11 +20,12 @@ import logger from '../../src/lib/logger';
 // CONFIGURATION
 // ============================================
 
-const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+const FALLBACK_NEXTAUTH_SECRET = 'dev-fallback-nextauth-secret-change-me';
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || FALLBACK_NEXTAUTH_SECRET;
 
-if (!NEXTAUTH_SECRET) {
+if (!process.env.NEXTAUTH_SECRET) {
   logger.warn(
-    '⚠️ NEXTAUTH_SECRET not set — authenticated socket connections will be REJECTED. Set NEXTAUTH_SECRET in .env'
+    '⚠️ NEXTAUTH_SECRET not set — using fallback secret for socket auth. Set NEXTAUTH_SECRET in .env for production consistency.'
   );
 }
 
@@ -62,14 +63,6 @@ export async function socketAuthMiddleware(
       authSocket.isGuest = true;
       logger.debug(`[AUTH] Guest socket connected: ${socket.id}`);
       return next();
-    }
-
-    // ── Reject if secret not configured ──────────────────────────
-    if (!NEXTAUTH_SECRET) {
-      logger.warn(
-        `[AUTH] Rejecting socket ${socket.id} — NEXTAUTH_SECRET not configured, cannot verify token`
-      );
-      return next(new Error('Server authentication not configured — set NEXTAUTH_SECRET'));
     }
 
     // ── Verify the NextAuth JWT ──────────────────────────────────

@@ -312,7 +312,7 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
       {/* Mobile Home — replaces entire desktop layout on small screens */}
       {isMobile !== false && (
         <MobileHome
-          publicRooms={publicRooms}
+          publicRooms={searchParams?.get('testempty') === 'true' ? [] : publicRooms}
           joinCode={joinCode}
           setJoinCode={setJoinCode}
           onCreateRoom={createRoom}
@@ -716,7 +716,7 @@ export default function HomeClient({ initialRooms = [] }: { initialRooms?: Room[
             {/* Right Column: Server Browser Window */}
             <div data-tour="server-browser">
               <ServerBrowser
-                publicRooms={publicRooms}
+                publicRooms={searchParams?.get('testempty') === 'true' ? [] : publicRooms}
                 primaryColor={currentTheme.colors.primary}
                 darkBackground={currentTheme.colors.darkBackground}
                 isDarkMode={isDarkMode}

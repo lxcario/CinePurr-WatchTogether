@@ -18,7 +18,7 @@ async def run_test():
                 "--window-size=1280,720",         # Set the browser window size
                 "--disable-dev-shm-usage",        # Avoid using /dev/shm which can cause issues in containers
                 "--ipc=host",                     # Use host-level IPC for better stability
-                "--single-process"                # Run the browser in a single process mode
+                ""                # Run the browser in a single process mode
             ],
         )
 
@@ -30,11 +30,11 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000")
+        # -> Navigate to https://cinepurr.me
+        await page.goto("https://cinepurr.me")
         
-        # -> Navigate to /register (use explicit navigate to http://localhost:3000/register as the test step specifies).
-        await page.goto("http://localhost:3000/register")
+        # -> Navigate to /register (use explicit navigate to https://cinepurr.me/register as the test step specifies).
+        await page.goto("https://cinepurr.me/register")
         
         # -> Type 'missingemail_automation' into the username field (index 577).
         frame = context.pages[-1]

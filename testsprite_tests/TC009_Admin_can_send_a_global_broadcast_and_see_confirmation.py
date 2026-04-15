@@ -18,7 +18,7 @@ async def run_test():
                 "--window-size=1280,720",         # Set the browser window size
                 "--disable-dev-shm-usage",        # Avoid using /dev/shm which can cause issues in containers
                 "--ipc=host",                     # Use host-level IPC for better stability
-                "--single-process"                # Run the browser in a single process mode
+                ""                # Run the browser in a single process mode
             ],
         )
 
@@ -31,8 +31,8 @@ async def run_test():
 
         # Interact with the page elements to simulate user flow
  
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000")
+        # -> Navigate to https://cinepurr.me
+        await page.goto("https://cinepurr.me")
         # -> Fill username with 'Resque' into element [1297], fill password with '***REMOVED***' into element [1307], then click the Sign In button [1319]. ASSERTION: After filling, the Sign In action will be attempted.
         frame = context.pages[-1]
         # Input text

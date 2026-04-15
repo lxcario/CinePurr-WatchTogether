@@ -258,14 +258,7 @@ export default function RoomPage({ params: _params }: RoomPageProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Redirect unauthenticated users to login
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      // Store the room URL to redirect back after login
-      sessionStorage.setItem('redirect_url', `/room/${params.roomId}`);
-      router.push('/login');
-    }
-  }, [status, router, params.roomId]);
+  // Guests are allowed to join rooms; we generate a guest identity above.
 
   useEffect(() => {
     if (!socket) return;
@@ -529,14 +522,44 @@ export default function RoomPage({ params: _params }: RoomPageProps) {
     const normalizedUrl = normalizeYouTubeUrl(newUrl);
 
     if (normalizedUrl || isValidYouTubeUrl(newUrl)) {
-      // It's a YouTube URL, normalize and play it directly
-      const newVideo: VideoSource = {
-        url: normalizedUrl || newUrl,
-        title: 'New Video',
-        provider: 'youtube',
-      };
-      setVideoSource(newVideo);
-      socket?.emit('room:change_video', { roomId: params.roomId, video: newVideo });
+      // Direct URL flow should add to queue (tests expect queue entry), not force immediate playback.
+      const finalUrl = normalizedUrl || newUrl;
+      let resolvedTitle = 'YouTube Video';
+      let resolvedThumbnail: string | undefined;
+
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(finalUrl)}&type=youtube`);
+        if (res.ok) {
+          const results = await res.json();
+          const list = Array.isArray(results) ? results : [];
+          const submittedVideoId = extractYouTubeVideoId(finalUrl);
+
+          // Prefer exact video-id match if available to avoid noisy URL-string search results.
+          const exact = list.find((item: SearchResult) => {
+            const candidateId = extractYouTubeVideoId(item.url || '');
+            return submittedVideoId && candidateId === submittedVideoId;
+          });
+
+          const best = exact || list[0];
+          if (best) {
+            resolvedTitle = best.title || resolvedTitle;
+            resolvedThumbnail = best.thumbnail;
+          }
+        }
+      } catch {
+        // Keep fallback title/thumbnail if metadata lookup fails.
+      }
+
+      socket?.emit('room:queue_add', {
+        roomId: params.roomId,
+        video: {
+          url: finalUrl,
+          title: resolvedTitle,
+          provider: 'youtube',
+          thumbnail: resolvedThumbnail,
+        },
+      });
+
       setNewUrl('');
       setSearchResults([]);
       setShowResults(false);

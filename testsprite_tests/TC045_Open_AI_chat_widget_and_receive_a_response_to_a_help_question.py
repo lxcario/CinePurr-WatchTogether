@@ -18,7 +18,7 @@ async def run_test():
                 "--window-size=1280,720",         # Set the browser window size
                 "--disable-dev-shm-usage",        # Avoid using /dev/shm which can cause issues in containers
                 "--ipc=host",                     # Use host-level IPC for better stability
-                "--single-process"                # Run the browser in a single process mode
+                ""                # Run the browser in a single process mode
             ],
         )
 
@@ -30,11 +30,11 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000")
+        # -> Navigate to https://cinepurr.me
+        await page.goto("https://cinepurr.me")
         
-        # -> Navigate to /login (http://localhost:3000/login) to begin the login step.
-        await page.goto("http://localhost:3000/login")
+        # -> Navigate to /login (https://cinepurr.me/login) to begin the login step.
+        await page.goto("https://cinepurr.me/login")
         
         # -> Type the username into the username field (index 568) as the immediate action.
         frame = context.pages[-1]
@@ -59,7 +59,7 @@ async def run_test():
         await asyncio.sleep(3); await elem.click()
         
         # -> Navigate to the login page (/login) to retry the login flow so the chat widget can be opened after successful login.
-        await page.goto("http://localhost:3000/login")
+        await page.goto("https://cinepurr.me/login")
         
         # -> Type 'Lucario' into the username field (index 1818) as the immediate action.
         frame = context.pages[-1]

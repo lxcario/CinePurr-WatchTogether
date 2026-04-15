@@ -18,7 +18,7 @@ async def run_test():
                 "--window-size=1280,720",         # Set the browser window size
                 "--disable-dev-shm-usage",        # Avoid using /dev/shm which can cause issues in containers
                 "--ipc=host",                     # Use host-level IPC for better stability
-                "--single-process"                # Run the browser in a single process mode
+                ""                # Run the browser in a single process mode
             ],
         )
 
@@ -30,8 +30,8 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000")
+        # -> Navigate to https://cinepurr.me
+        await page.goto("https://cinepurr.me")
         
         # -> Fill the username and password fields with the provided credentials and click the 'Sign In' button to attempt login (this will navigate to the room page).
         frame = context.pages[-1]
@@ -50,7 +50,7 @@ async def run_test():
         await asyncio.sleep(3); await elem.click()
         
         # -> Navigate to /login using the explicit navigation step (per test instructions). Then proceed with the login inputs on that page.
-        await page.goto("http://localhost:3000/login")
+        await page.goto("https://cinepurr.me/login")
         
         # -> Type the username into the username field (index 1308), type the password into the password field (index 1309), then click the Sign In button (index 1314) to submit the form.
         frame = context.pages[-1]

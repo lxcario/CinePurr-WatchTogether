@@ -33,10 +33,10 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Navigate to /register so I can observe the registration form fields.
+        # -> Open the registration page at /register so the form can be observed and filled.
         await page.goto("http://localhost:3000/register")
         
-        # -> Fill the registration form (username, email, password, birthdate) and submit the form to trigger the redirect to the homepage.
+        # -> Fill the username field with 'Lucario' and continue to fill email and password, then submit the form.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
@@ -45,133 +45,36 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1000@example.com')
+        await asyncio.sleep(3); await elem.fill('lucario+20260415@example.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('***REMOVED***')
         
-        # -> Fill the birth date with a valid value and submit the Sign Up form to trigger the redirect to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[4]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('2000-01-01')
-        
+        # -> Click the 'Sign Up' button to submit the registration form (element index 747).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Fill the username, email, and password fields again, then click Sign Up to trigger the redirect to the homepage.
+        # -> Update the username and email to unique values, enter a password that meets the uppercase and special-character requirements, then submit the registration form.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
+        await asyncio.sleep(3); await elem.fill('Lucario_unique_20260415')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1001@example.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
-        
-        # -> Click the 'Sign Up' button to submit the registration form, then verify the app redirects to the homepage.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Replace the email with a valid provider (gmail) and submit the Sign Up form to verify redirect to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1002@gmail.com')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Click the Sign Up / submit button to submit the filled registration form, then wait for the app to redirect to the homepage and verify the redirect.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[4]').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Fill the registration form fields freshly (username, email, password, birthdate), click Sign Up, wait for the app to redirect to the homepage, then verify the redirect.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1003@gmail.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
-        
-        # -> Fill the birth date field with 2000-01-01, re-ensure username/email/password values, click the Sign Up button (index 1496), then wait for and verify redirect to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1003@gmail.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('***REMOVED***')
-        
-        # -> Fill the birth date field (index 1491) with 2000-01-01, update the password (index 1490) to 'Rerere123!' to meet complexity, click the Sign Up button (index 1496), then wait and verify the app redirects to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[4]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('2000-01-01')
+        await asyncio.sleep(3); await elem.fill('lucario+20260415_unique@example.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('Rerere123!')
         
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Fill the form fields with valid values (username, gmail email, complex password, birth date) and click the Sign Up button (index 1982) to trigger registration and then check for redirect to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[2]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('lucario+1004@gmail.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Rerere123!')
-        
-        # -> Fill the birth date field with a valid date, submit the form by clicking 'Sign Up', then wait for and verify redirect to the homepage.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[4]/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('2000-01-01')
-        
+        # -> Click the 'Sign Up' button to submit the registration form (index 747) and then verify whether the app redirects to the homepage.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)
@@ -180,7 +83,7 @@ async def run_test():
         # --> Assertions to verify final state
         frame = context.pages[-1]
         current_url = await frame.evaluate("() => window.location.href")
-        assert '/' in current_url, "The page should have navigated to the homepage after successful registration."
+        assert '/' in current_url, "The page should have navigated to the homepage after registration"
         await asyncio.sleep(5)
 
     finally:

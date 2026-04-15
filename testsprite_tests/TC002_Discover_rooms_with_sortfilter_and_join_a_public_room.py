@@ -33,10 +33,25 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
+        # -> Dismiss the welcome modal so the room list and sort/filter controls are accessible (click 'Skip' or 'Let's go').
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        await asyncio.sleep(3); await elem.click()
+        
+        # -> Click the public room 'Resque's Room' in the server list to join it and then verify playback and chat are visible.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
+        await asyncio.sleep(3); await elem.click()
+        
+        # -> Return to the homepage and open the room list sort/filter controls, then select a 'Trending' or 'Recent' sort and verify the list updates.
+        await page.goto("http://localhost:3000/")
+        
         # --> Assertions to verify final state
         frame = context.pages[-1]
-        assert await frame.locator("xpath=//*[contains(., 'Now playing')]").nth(0).is_visible(), "The room should display 'Now playing' to indicate video playback is visible after joining the room.",
-        assert await frame.locator("xpath=//*[contains(., 'Chat')]").nth(0).is_visible(), "Real-time chat should be visible in the room after joining so guests can participate.",
+        assert await frame.locator("xpath=//*[contains(., 'Now Playing')]").nth(0).is_visible(), "The room should show video playback after joining Resque's Room.",
+        assert await frame.locator("xpath=//*[contains(., 'Chat')]").nth(0).is_visible(), "The room should show real-time chat after joining Resque's Room.",
         await asyncio.sleep(5)
 
     finally:

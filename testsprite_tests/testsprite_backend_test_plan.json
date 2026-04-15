@@ -1,52 +1,47 @@
 [
   {
     "id": "TC001",
-    "title": "post api rooms create room with valid authorization",
-    "description": "Test creating a room using POST /api/rooms with valid Authorization header and valid request body. Verify response status 200 and returned Room object contains expected fields like id, inviteCode, hostId, and maxUsers."
+    "title": "test_user_login_with_valid_and_invalid_credentials",
+    "description": "Verify that users can successfully log in with valid email or username and password, and receive an appropriate error message when credentials are invalid."
   },
   {
     "id": "TC002",
-    "title": "patch api rooms update room as host user",
-    "description": "Test updating a room using PATCH /api/rooms/[id] with Authorization header of the host user and valid update fields in the body. Verify response status 200 and returned Room object reflects updated maxUsers and description."
+    "title": "test_user_registration_with_valid_and_invalid_email",
+    "description": "Verify that new users can register with valid username, email, and password, and that invalid email formats trigger inline validation errors."
   },
   {
     "id": "TC003",
-    "title": "patch api rooms update room as non host user forbidden",
-    "description": "Test updating a room using PATCH /api/rooms/[id] with Authorization header of a non-host user. Verify response status 403 Forbidden to ensure only host can update the room."
+    "title": "test_room_discovery_and_joining_public_rooms",
+    "description": "Verify that users can browse, filter, and sort public watch rooms on the homepage, join a selected room, and see synchronized video playback and chat interface."
   },
   {
     "id": "TC004",
-    "title": "get api rooms recommendations with valid limit",
-    "description": "Test fetching room recommendations using GET /api/rooms/recommendations with a valid numeric limit query parameter. Verify response status 200 and response contains an array of recommended room summaries."
+    "title": "test_watch_room_synchronized_playback_and_chat_functionality",
+    "description": "Verify that users joining a watch room experience synchronized video playback controlled by the host, can send chat messages, see typing indicators, and view recent chat history."
   },
   {
     "id": "TC005",
-    "title": "get api rooms recommendations with invalid limit",
-    "description": "Test fetching room recommendations using GET /api/rooms/recommendations with an invalid non-numeric limit query parameter. Verify response status 400 Bad Request."
+    "title": "test_video_queue_suggestion_and_voting",
+    "description": "Verify that users can add videos to the room queue by URL or search, see the queued items, upvote queue items, and observe vote counts and queue reordering."
   },
   {
     "id": "TC006",
-    "title": "socket player sync with valid authentication",
-    "description": "Test connecting to Socket.IO server with valid session cookie or Authorization token and emitting 'player:sync' event with valid payload. Verify server broadcasts 'player:update' event with authoritative position and serverTimestamp to room members."
+    "title": "test_chat_and_emoji_reactions_in_watch_room",
+    "description": "Verify that users can send real-time chat messages, react to messages with emojis, and see reaction counts update along with floating video reactions."
   },
   {
     "id": "TC007",
-    "title": "socket room ping with valid payload",
-    "description": "Test emitting 'room:ping' event over Socket.IO with valid clientTimestamp payload. Verify receiving 'room:pong' event with serverTimestamp and correct clock offset computation."
+    "title": "test_video_search_and_addition_via_tmdb_and_youtube",
+    "description": "Verify that users can search for movies and TV shows via TMDB, view results with details, select items to preview or add to queue, and add videos by pasting YouTube URLs."
   },
   {
     "id": "TC008",
-    "title": "post api quests daily with valid progress",
-    "description": "Test submitting daily quest progress using POST /api/quests/daily with valid Authorization header and body containing positive progress number. Verify response status 200 and updated DailyQuest progress and XP awarded."
+    "title": "test_watchlist_and_watch_history_management",
+    "description": "Verify that users can save TMDB results to their personal watchlist, view saved items with options to remove, and see auto-logged watch history entries with links to rejoin rooms."
   },
   {
     "id": "TC009",
-    "title": "post api friends accept with valid request id",
-    "description": "Test accepting a friend request using POST /api/friends/accept with valid Authorization header and valid requestId in the body. Verify response status 200 and returned friendship object with friendId and status 'accepted'."
-  },
-  {
-    "id": "TC010",
-    "title": "post api notifications send notification with valid data",
-    "description": "Test sending an application notification using POST /api/notifications with valid Authorization header and body containing title, message, and targetUserId. Verify response status 200 and returned Notification object. Also verify server emits Socket.IO 'notification' event to targetUserId socket(s) with the Notification payload."
+    "title": "test_progress_tracking_daily_quests_and_leaderboards",
+    "description": "Verify that users can view XP, daily quests, and progress updates on the homepage, complete quests to earn rewards, and view leaderboards with user stats and profiles."
   }
 ]

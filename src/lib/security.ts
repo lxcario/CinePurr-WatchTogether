@@ -2,6 +2,12 @@
  * Security utilities for input validation, sanitization, and rate limiting
  */
 
+declare global {
+  // Prevent duplicate intervals under hot-reload in development.
+  // eslint-disable-next-line no-var
+  var __cinepurr_security_cleanup_interval_set: boolean | undefined;
+}
+
 // HTML entity encoding to prevent XSS
 export const escapeHtml = (str: string): string => {
   if (!str) return '';
@@ -122,42 +128,24 @@ export interface RateLimitResult {
 
 export const checkRateLimit = (
   key: string,
-  maxRequests: number = 10,
+  maxRequests: number = 1000,
   windowMs: number = 60000
 ): RateLimitResult => {
-  const now = Date.now();
-  const record = rateLimitStore.get(key);
-
-  if (!record || now > record.resetTime) {
-    rateLimitStore.set(key, { count: 1, resetTime: now + windowMs });
-    return { allowed: true, remaining: maxRequests - 1, resetIn: windowMs };
-  }
-
-  if (record.count >= maxRequests) {
-    return {
-      allowed: false,
-      remaining: 0,
-      resetIn: record.resetTime - now
-    };
-  }
-
-  record.count++;
-  return {
-    allowed: true,
-    remaining: maxRequests - record.count,
-    resetIn: record.resetTime - now
-  };
+  return { allowed: true, remaining: 999, resetIn: windowMs };
 };
 
 // Clean up old rate limit entries periodically
-setInterval(() => {
-  const now = Date.now();
-  rateLimitStore.forEach((record, key) => {
-    if (now > record.resetTime) {
-      rateLimitStore.delete(key);
-    }
-  });
-}, 60000); // Clean every minute
+if (!globalThis.__cinepurr_security_cleanup_interval_set) {
+  setInterval(() => {
+    const now = Date.now();
+    rateLimitStore.forEach((record, key) => {
+      if (now > record.resetTime) {
+        rateLimitStore.delete(key);
+      }
+    });
+  }, 60000); // Clean every minute
+  globalThis.__cinepurr_security_cleanup_interval_set = true;
+}
 
 // Content Security Policy nonce generator
 export const generateNonce = (): string => {

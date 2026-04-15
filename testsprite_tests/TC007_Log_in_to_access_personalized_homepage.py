@@ -33,23 +33,20 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Navigate to /login
-        await page.goto("http://localhost:3000/login")
-        
-        # -> Fill the username field (index 578) with 'Lucario', then the password field (index 579) with '***REMOVED***', and submit the form (click index 584).
+        # -> Fill the username and password fields with the provided credentials and click Sign In to attempt login.
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('Lucario')
         
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div[2]/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('***REMOVED***')
         
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

@@ -18,7 +18,7 @@ async def run_test():
                 "--window-size=1280,720",         # Set the browser window size
                 "--disable-dev-shm-usage",        # Avoid using /dev/shm which can cause issues in containers
                 "--ipc=host",                     # Use host-level IPC for better stability
-                "--single-process"                # Run the browser in a single process mode
+                ""                # Run the browser in a single process mode
             ],
         )
 
@@ -30,11 +30,11 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000")
+        # -> Navigate to https://cinepurr.me
+        await page.goto("https://cinepurr.me")
         
-        # -> Navigate to /login (use navigate action to http://localhost:3000/login).
-        await page.goto("http://localhost:3000/login")
+        # -> Navigate to /login (use navigate action to https://cinepurr.me/login).
+        await page.goto("https://cinepurr.me/login")
         
         # -> Fill the username field with 'Lucario' (input index 555), then fill password and click Sign In.
         frame = context.pages[-1]
@@ -52,8 +52,8 @@ async def run_test():
         elem = frame.locator('xpath=/html/body/div[3]/main/div[6]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Navigate to /admin (use navigate action to http://localhost:3000/admin).
-        await page.goto("http://localhost:3000/admin")
+        # -> Navigate to /admin (use navigate action to https://cinepurr.me/admin).
+        await page.goto("https://cinepurr.me/admin")
         
         # -> Click the 'LOGIN' link on the homepage to open the login page so the admin can sign in (then proceed to /admin). ASSERTION: Verify the login page loads after clicking.
         frame = context.pages[-1]
