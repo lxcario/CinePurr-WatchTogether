@@ -33,15 +33,16 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Click the 'Skip' button on the welcome modal to close it, then click the room join link in the recommendations/recent widget (element index 230) to open the room and verify participant information.
+        # -> Dismiss the onboarding modal by clicking 'Skip', then click the first room in the recommendations widget to join it and verify participants info.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div[1]/div[2]/div/div/div[2]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
+        # -> Click the 'Resque\'s Room' entry in the recommendations widget to join it and then verify the room participants (host and viewers) information.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

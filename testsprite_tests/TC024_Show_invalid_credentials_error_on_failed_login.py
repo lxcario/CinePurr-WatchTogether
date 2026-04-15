@@ -33,16 +33,16 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Open the login page by clicking the LOGIN link (index 288), then locate the email/username and password fields to submit invalid credentials 'invalid_user' / 'wrong_password'.
+        # -> Open the login page by clicking the LOGIN link so we can submit the invalid credentials.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/nav/div/div/a').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/nav/div/div/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Navigate to http://localhost:3000/login, wait for the page to load, then locate the email/username and password fields to submit invalid credentials 'invalid_user' / 'wrong_password'.
+        # -> Navigate to http://localhost:3000/login to load the login form.
         await page.goto("http://localhost:3000/login")
         
-        # -> Fill the username and password with invalid credentials, submit the form, then verify an invalid-credentials error appears and the user remains unauthenticated.
+        # -> Fill the username field (index 1269) with 'invalid_user', fill the password field (index 1270) with 'wrong_password', then click the Sign In button (index 1275) to submit the form.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)

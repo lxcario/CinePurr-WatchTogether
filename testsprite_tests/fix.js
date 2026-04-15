@@ -1,8 +1,1 @@
-const fs = require('fs');
-const files = fs.readdirSync('testsprite_tests').filter(f => f.endsWith('.py'));
-files.forEach(f => {
-  const path = 'testsprite_tests/' + f;
-  let content = fs.readFileSync(path, 'utf8');
-  content = content.replace(/"--single-process"/g, '""');
-  fs.writeFileSync(path, content);
-});
+const { PrismaClient } = require("@prisma/client"); async function m() { const p = new PrismaClient(); await p.$connect(); const user = await p.user.findFirst(); const room = await p.room.upsert({ where: { id: "tc011-room-id" }, update: { onlineCount: 1 }, create: { id: "tc011-room-id", name: "TestRoom TC011", isPublic: true, onlineCount: 1, host: { connect: { id: user.id } } } }); console.log("Created/Updated test room:", room.name); await p.$disconnect(); } m().catch(console.error);

@@ -33,20 +33,29 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Fill the username and password fields with the provided credentials and click Sign In to attempt login.
+        # -> Click the onboarding modal 'Skip' button to close it, then click the top LOGIN link to open the login form and wait for the form to appear.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        await asyncio.sleep(3); await elem.click()
+        
+        # -> Navigate directly to /login and wait for the login page to render, then re-evaluate visible form fields before filling credentials.
+        await page.goto("http://localhost:3000/login")
+        
+        # -> Fill the username and password fields with provided credentials and submit the form, then wait for the app to navigate to the logged-in homepage.
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('Lucario')
         
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div[2]/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('***REMOVED***')
         
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent
