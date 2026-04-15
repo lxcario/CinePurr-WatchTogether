@@ -18,7 +18,7 @@ const DEMO_AUTH_USERS = [
   {
     username: 'Lucario',
     email: 'lucario@example.com',
-    password: '***REMOVED***',
+    password: process.env.DEMO_USER_PASSWORD || 'demo_admin_password_123',
     role: 'FOUNDER',
     isFounder: true,
     isVIP: true,
@@ -26,7 +26,7 @@ const DEMO_AUTH_USERS = [
   {
     username: 'Resque',
     email: '***REMOVED***',
-    password: '***REMOVED***',
+    password: process.env.DEMO_USER_PASSWORD || 'demo_admin_password_123',
     role: 'PURR_ADMIN',
     isFounder: false,
     isVIP: true,
@@ -34,7 +34,7 @@ const DEMO_AUTH_USERS = [
   {
     username: 'MovieGuest',
     email: 'nonadmin.user@example.com',
-    password: 'WrongPassword123!',
+    password: process.env.DEMO_GUEST_PASSWORD || 'failed_pass_check_123',
     role: 'USER',
     isFounder: false,
     isVIP: false,
@@ -326,3 +326,4 @@ export const authOptions: NextAuthOptions = {
     }
   }
 }
+
