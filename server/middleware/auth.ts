@@ -20,7 +20,7 @@ import logger from '../../src/lib/logger';
 // CONFIGURATION
 // ============================================
 
-const FALLBACK_NEXTAUTH_SECRET = 'dev-fallback-nextauth-secret-change-me';
+const FALLBACK_NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || 'dev-fallback-nextauth-secret-change-me';
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || FALLBACK_NEXTAUTH_SECRET;
 
 if (!process.env.NEXTAUTH_SECRET) {
@@ -150,3 +150,4 @@ export function getSocketIdentity(socket: Socket): {
     userRole: authSocket.userRole || 'GUEST',
   };
 }
+
