@@ -1,5 +1,9 @@
 # 🎬 CinePurr — Watch Together, Purrfectly Synced
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-cinepurr.me-brightgreen?style=for-the-badge)](https://cinepurr.me)
+[![Demo Video](https://img.shields.io/badge/Demo_Video-YouTube-red?style=for-the-badge&logo=youtube)](YOUR_YOUTUBE_LINK_HERE)
+
+
 **🌐 Live Demo: [https://cinepurr.me](https://cinepurr.me)**
 
 [![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2)
