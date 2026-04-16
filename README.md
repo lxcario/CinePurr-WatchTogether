@@ -1,112 +1,137 @@
-# 🎬 CinePurr — Watch Together, Purrfectly Synced
+# CinePurr Watch Together
 
-**🌐 Live Demo: [https://cinepurr.me](https://cinepurr.me)**
+[![Watch the demo](public/og-image.png)](https://youtu.be/i0A-mW8Lt8M)
 
-[![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2)
+CinePurr is a retro pixel-art watch-together platform built to make shared viewing feel like a game night instead of a bare video player. Create real-time rooms, sync playback, chat live, build shared queues, unlock progression systems, and jump into built-in minigames without leaving the app.
 
-> **A retro pixel-art, real-time watch-together platform** with synchronized rooms, chat, gamification, minigames, study tools, and social features — all wrapped in a Pokémon-themed UI.
+**Live app:** [https://cinepurr.me](https://cinepurr.me)  
+**Demo video:** [https://youtu.be/i0A-mW8Lt8M](https://youtu.be/i0A-mW8Lt8M)  
+**TestSprite evidence:** [testsprite_tests/HACKATHON_EVIDENCE.md](testsprite_tests/HACKATHON_EVIDENCE.md)  
+**Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)  
+**Feature inventory:** [FEATURES_IMPLEMENTED.md](FEATURES_IMPLEMENTED.md)
 
-> ⚠️ **Disclaimer / Fair Use:** CinePurr is an educational prototype built exclusively for the TestSprite Hackathon S2. This project is strictly non-profit and not intended for commercial operations. All Pokémon assets, characters, and third-party movie streams are used under Fair Use for technical demonstration purposes only. All intellectual property rights belong to their respective original owners (Nintendo, The Pokémon Company, etc.). Any optional donations are strictly voluntary support for the developer's time and are not payments for access to copyrighted content or services.
+## Why This Project Stands Out
 
-## 🧪 TestSprite Integration (Hackathon Submission)
+- It is a full product, not a thin prototype: synchronized watch rooms, queue management, real-time chat, profiles, notifications, social systems, admin controls, and study tools all ship in one cohesive app.
+- It has strong retention loops: XP, levels, daily quests, streaks, achievements, crates, leaderboards, reactions, friends, groups, and activity feeds make the platform feel alive between watch sessions.
+- The real-time layer is central, not cosmetic: Socket.IO powers room presence, shared playback flows, collaborative queues, and live chat behavior across the experience.
+- The product has a memorable identity: retro UI, themed mascots, multiple unlockable themes, bilingual support, and PWA installability make it feel distinct the moment it loads.
 
-This repository is submitted for the **[TestSprite Hackathon S2](https://www.testsprite.com/hackathon-s2)**. To ensure a flawless user experience, CinePurr WatchTogether is fully covered by an AI-driven end-to-end testing suite.
+## TestSprite Hackathon S2 Submission
 
-- **Test Suite Directory:** [`testsprite_tests/`](testsprite_tests/) — Contains AI-generated test cases, Playwright scripts, and TestSprite planning artifacts.
-- **Committed artifact snapshot:**
-  - Frontend plan: **13** prioritized scenarios ([`testsprite_frontend_test_plan.json`](testsprite_tests/testsprite_frontend_test_plan.json))
-  - Backend plan: **9** scenarios ([`testsprite_backend_test_plan.json`](testsprite_tests/testsprite_backend_test_plan.json))
-  - Generated scripts: **67** `TC*.py` files (multi-round generated set)
-  - Standard PRD: [`standard_prd.json`](testsprite_tests/standard_prd.json)
-  - Judge guide: [`testsprite_tests/HACKATHON_EVIDENCE.md`](testsprite_tests/HACKATHON_EVIDENCE.md) and [`testsprite_tests/README.md`](testsprite_tests/README.md)
-  - Local TestSprite execution evidence: screenshot at [`testsprite_tests/testsprite_dashboard_proof.png`](testsprite_tests/testsprite_dashboard_proof.png) showing the final **13/13** run.
-  - Demo Video: In progress now. Final `demo.mp4` will be added before submission.
+This repository is submitted for [TestSprite Hackathon S2](https://www.testsprite.com/hackathon-s2). The `testsprite_tests/` directory contains the planning artifacts, generated tests, execution evidence, and judge-facing notes for the submission.
 
-## ✨ What Makes CinePurr Special
+### TestSprite snapshot
 
-CinePurr isn't just another watch-together app. It's a **full social platform** built around the joy of watching content with friends:
+- Frontend plan: 13 prioritized scenarios in [testsprite_frontend_test_plan.json](testsprite_tests/testsprite_frontend_test_plan.json)
+- Backend plan: 9 API-focused scenarios in [testsprite_backend_test_plan.json](testsprite_tests/testsprite_backend_test_plan.json)
+- Generated artifacts: 67 committed `TC*.py` files across multiple TestSprite passes
+- Judge guide: [testsprite_tests/README.md](testsprite_tests/README.md) and [testsprite_tests/HACKATHON_EVIDENCE.md](testsprite_tests/HACKATHON_EVIDENCE.md)
+- Final proof image: [testsprite_dashboard_proof.png](testsprite_tests/testsprite_dashboard_proof.png)
+- Submission demo: [https://youtu.be/i0A-mW8Lt8M](https://youtu.be/i0A-mW8Lt8M)
 
-- 🎬 **Synchronized Watch Rooms** — Host-authority video sync for YouTube, MP4, and live streams with sub-100ms chat
-- 🎮 **6 Built-in Minigames** — Snake, 2048, Tetris, Memory Match, Math Challenge, Abyssal Watch — all inside a Game Boy shell with scanlines
-- 🏆 **Full Gamification** — XP, levels, daily quests, login streaks, crates, leaderboards, achievements
-- 🐾 **13 Pokémon Themes** — Pikachu, Umbreon, Gengar, Sylveon, and more — each with unique color palettes and sprite mascots
-- 🤖 **AI Chatbot** — Google Gemini-powered assistant for help and movie recommendations
-- 📚 **Study Room** — Pomodoro timer with focus mode and study streaks
-- 🎵 **Mini Music Player** — Stream music via Piped API with persistent mini player
-- 👥 **Social Features** — Friends, DMs, groups, activity feed, notifications
-- 🛡️ **Admin Panel** — User management, bans, broadcasts, metrics
-- 🌍 **i18n** — English + Turkish support
-- 📱 **PWA** — Installable, offline fallback, mobile-optimized
+### Testing progression
 
----
+| Round | Environment | Result | Key takeaway |
+| --- | --- | --- | --- |
+| Round 1 | Production (`cinepurr.me`) | 8/30 | Production bot detection blocked automated login and caused auth-heavy downstream failures |
+| Round 2 | Local (`localhost:3000`) | 12/13 | TestSprite surfaced real bugs that were fixed immediately |
+| Round 3 | Local (`localhost:3000`) | 13/13 | Final targeted local verification passed end-to-end |
 
-## 🛠️ Tech Stack
+### Bugs surfaced and fixed through TestSprite
+
+- Missing "Add to Watchlist" entry point in the TMDB movie detail flow
+- YouTube queue additions not appending correctly to the shared room state
+- Guest access redirect blocking room entry for non-authenticated users
+
+## Core Product Areas
+
+- **Watch rooms:** synchronized playback for YouTube, MP4, and stream sources with collaborative queues and room invites
+- **Social layer:** friends, direct messages, groups, notifications, recent activity, and profile pages
+- **Gamification:** XP, streaks, daily quests, achievements, leaderboards, titles, and reward crates
+- **Minigames:** six built-in games integrated into the product experience instead of separated into a different app
+- **Study mode:** Pomodoro timer, focus tools, study streaks, and dedicated study-room workflows
+- **Admin tooling:** user moderation, room oversight, broadcast messaging, VIP management, and system visibility
+- **Platform polish:** PWA installability, offline fallback, responsive layouts, and English/Turkish localization
+
+## Feature Highlights
+
+### Real-time watch party system
+
+- Public and private co-watching rooms with shareable invite flows
+- Shared playback state for YouTube URLs, direct MP4 content, and stream-oriented room flows
+- Queue management with URL add, TMDB-assisted discovery, voting, ordering, and watchlist entry points
+- Live room chat with message reactions, typing indicators, and guest-access room participation
+
+### Social and progression systems
+
+- User profiles with collectible identity layers, stats, and social activity
+- Friends, direct messages, groups, notifications, and recent-room discovery
+- XP, levels, daily quests, streaks, achievements, titles, and reward crates
+- Leaderboards, watch history, and rejoin-friendly room flows
+
+### Extra product depth beyond a basic watch app
+
+- Six built-in minigames available inside the product experience
+- Study room with Pomodoro sessions, task tracking, dashboard stats, and streak support
+- Google Gemini-powered helper chat for recommendations and guidance
+- Mini music player and entertainment-focused side features that keep the app sticky outside a single room session
+
+### Admin and operations surface
+
+- Admin panel with maintenance toggles, broadcasts, access control, and room/user management
+- Health and analytics endpoints, moderation flows, VIP tooling, and system-status visibility
+- Production-minded deployment setup with Docker, Nginx, Prisma, and build-time validation
+
+## Technical Depth
+
+- Next.js App Router front end with a separate Express + Socket.IO real-time server
+- PostgreSQL + Prisma data layer with 28 models and 9 migrations
+- 50+ API routes spanning rooms, social features, study tools, admin controls, and user progression
+- Unit and integration coverage in `tests/` plus committed TestSprite-generated end-to-end assets in `testsprite_tests/`
+- PWA support, bilingual UX, and a themed visual identity that carries across the product instead of stopping at the landing page
+
+## Stack
 
 | Layer | Technology |
-|---|---|
-| Framework | **Next.js 16** (App Router) |
-| Language | **TypeScript 5** |
-| UI | **React 19** + Tailwind CSS + Motion |
-| Real-time | **Socket.IO v4** |
-| Database | **PostgreSQL** + Prisma 6 (28 models, 9 migrations) |
-| Auth | NextAuth (JWT, bcrypt) |
-| Queue | BullMQ |
-| Cache | Redis |
+| --- | --- |
+| App framework | Next.js 16, React 19, TypeScript 5 |
+| Styling | Tailwind CSS, Motion |
+| Real-time | Express, Socket.IO |
+| Data | PostgreSQL, Prisma 6 |
+| Auth | NextAuth, bcrypt |
+| Background work | BullMQ, Redis |
 | AI | Google Gemini |
-| Metrics | Prometheus via `prom-client` |
-| Infra | Docker Compose + Nginx + Let's Encrypt SSL |
+| Observability | `prom-client` |
+| Infra | Docker Compose, Nginx, Let's Encrypt |
 
----
+## What Judges Can Verify Quickly
 
-## 🧪 TestSprite Testing Journey
+1. Open the live app and create or join a room.
+2. Try queue interactions, reactions, and room discovery flows.
+3. Review the TestSprite evidence showing how bugs were found and fixed.
+4. Compare the product breadth in the README against the actual route and feature footprint in the repo.
 
-This project uses **TestSprite MCP** for AI-powered end-to-end testing.
+## Quick Judge Path
 
-### Round 1 (Remote — cinepurr.me)
-- **8/30 tests passed (26.6%)**
-- Primary blocker: Bot detection on production site blocked automated login
-- Auth failures cascaded to 22 downstream test failures
+If you only have a minute, use this order:
 
-### Round 2 (Local — localhost:3000)
-- **12/13 high-priority tests passed (92.3%)** on the first local execution.
-- Tests executed against local dev server with real PostgreSQL database
-- TestSprite identified **3 actionable bugs** which were immediately fixed:
-  - ✅ **Fixed:** Missing "Add to Watchlist" button on TMDB movie detail modal
-  - ✅ **Fixed:** YouTube queue addition logic not appending to queue state
-  - ✅ **Fixed:** Guest access redirect blocking room entry for non-authenticated users
+1. Watch the [demo video](https://youtu.be/i0A-mW8Lt8M).
+2. Open the [live app](https://cinepurr.me).
+3. Review [testsprite_tests/HACKATHON_EVIDENCE.md](testsprite_tests/HACKATHON_EVIDENCE.md).
+4. Inspect the final TestSprite proof in [testsprite_dashboard_proof.png](testsprite_tests/testsprite_dashboard_proof.png).
 
-### Round 3 (Local — localhost:3000)
-- **13/13 high-priority tests passed (100%)**
-- Final verified run captured in `testsprite_tests/testsprite_dashboard_proof.png`
-- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`).
-
-### Current repository snapshot
-- Frontend test plan currently tracks **13** prioritized scenarios.
-- Backend test plan currently tracks **9** API-focused scenarios.
-- The repository currently includes **67** generated `TC*.py` test scripts from multiple TestSprite passes.
-- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`). Proof of execution (13/13 tests passing) is documented in `testsprite_tests/testsprite_dashboard_proof.png`.
-
-### What We Learned
-TestSprite's AI agent was remarkably effective at finding real UI gaps — the missing watchlist button was a genuine feature regression that manual testing missed. The blocked tests revealed important UX friction points around guest access and empty-state handling that inform our roadmap.
-
-All tracked TestSprite artifacts are in [`testsprite_tests/`](./testsprite_tests/).
-
-### Local validation (non-TestSprite)
-- `npm test -- --run tests/unit tests/integration` currently passes: **17/17 tests**.
-
----
-
-## 🚀 Quick Start
+## Local Development
 
 ### Prerequisites
 
 | Requirement | Version |
-|---|---|
+| --- | --- |
 | Node.js | 22.x |
 | PostgreSQL | 14+ |
 | Redis | 7+ (optional) |
 
-### Install & Run
+### Install and run
 
 ```bash
 git clone https://github.com/lxcario/CinePurr-WatchTogether.git
@@ -119,52 +144,47 @@ npm run db:seed
 npm run dev
 ```
 
-In a second terminal (for real-time features):
+In a second terminal, start the real-time server:
+
 ```bash
 npm run server
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000).
 
----
+## Repository Map
 
-## 📁 Repository Layout
-
-```
+```text
 CinePurr-WatchTogether/
-├── server/                 # Express + Socket.IO server
-├── src/
-│   ├── app/                # Next.js routes and API handlers (50+ API routes)
-│   ├── components/         # 60+ React components (room, social, games, admin)
-│   ├── hooks/              # Shared client hooks
-│   ├── lib/                # Auth, Prisma, analytics, i18n, utilities
-│   └── types/              # Shared TypeScript types
-├── prisma/                 # 28 models and 9 migrations
-├── tests/                  # Vitest unit and integration tests
-├── testsprite_tests/       # TestSprite AI-generated test cases & reports
-└── public/                 # Static assets and PWA files
+|-- server/                 Express + Socket.IO server
+|-- src/
+|   |-- app/                Next.js routes and API handlers
+|   |-- components/         UI surfaces for rooms, social, games, admin, and study
+|   |-- hooks/              Shared client hooks
+|   |-- lib/                Auth, Prisma, analytics, i18n, and utilities
+|   `-- types/              Shared TypeScript types
+|-- prisma/                 Data models, migrations, and seed logic
+|-- tests/                  Unit and integration tests
+|-- testsprite_tests/       TestSprite-generated artifacts and execution evidence
+`-- public/                 Static assets, icons, and Open Graph media
 ```
 
----
+## Documentation
 
-## 📖 Documentation
+- [ARCHITECTURE.md](ARCHITECTURE.md) - system architecture and design notes
+- [FEATURES_IMPLEMENTED.md](FEATURES_IMPLEMENTED.md) - feature inventory
+- [DEPLOYMENT.md](DEPLOYMENT.md) - deployment guide
+- [CHANGELOG.md](CHANGELOG.md) - change history
+- [SECURITY_NOTE.md](SECURITY_NOTE.md) - security notes
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) — Full technical architecture with diagrams
-- [FEATURES_IMPLEMENTED.md](./FEATURES_IMPLEMENTED.md) — Complete feature inventory
-- [DEPLOYMENT.md](./DEPLOYMENT.md) — Production deployment guide
-- [CHANGELOG.md](./CHANGELOG.md) — Migration and upgrade history
-- [SECURITY_NOTE.md](./SECURITY_NOTE.md) — Security considerations
+## Build Notes
 
----
+- `npm run build` is set up to work as a local validation build without a production database.
+- Full runtime still requires real environment variables for authentication, persistence, and real-time services.
+- Local development uses Webpack for `next dev` to avoid Turbopack memory issues with the current stylesheet footprint.
 
-## 🏗️ Build Notes
+## Fair Use Note
 
-- `npm run build` can run as a local validation build without `DATABASE_URL` (build script sets fallbacks).
-- On Windows, Prisma can fail with `EPERM ... query_engine-windows.dll.node` if Node processes are holding file locks; stop active Node processes and rerun `npx prisma generate` before building.
-- Full runtime requires real environment variables for auth, persistence, and real-time features
-- The app uses Webpack for local dev (`next dev --webpack`) to avoid Turbopack OOM issues with 75KB `globals.css`
+CinePurr is an educational, non-commercial hackathon prototype. Some themed art assets and third-party content sources are used only for technical demonstration. All intellectual property rights remain with their respective owners. Any optional donations support development time only and do not grant access to copyrighted material.
 
----
-
-Built with ❤️ and pixel art by [@lxcario](https://github.com/lxcario)
-
+Built by [@lxcario](https://github.com/lxcario).

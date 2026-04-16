@@ -1,18 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import Script from 'next/script';
-import React from 'react';
+import React from "react";
 import { VT323 } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { I18nProvider } from '@/lib/i18n';
-import { SkipToContent } from "@/components/Accessibility";
-import { FullStructuredData } from "@/components/StructuredData";
-import ClientRoot from "@/components/ClientRoot";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { isSuperAdmin } from "@/lib/security";
-import { isMaintenanceMode } from "@/lib/maintenance";
+import "./globals.css";
 import MaintenancePage from "@/app/maintenance/page";
+import { SkipToContent } from "@/components/Accessibility";
+import ClientRoot from "@/components/ClientRoot";
+import { FullStructuredData } from "@/components/StructuredData";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { authOptions } from "@/lib/auth";
+import { I18nProvider } from "@/lib/i18n";
+import { isMaintenanceMode } from "@/lib/maintenance";
+import { isSuperAdmin } from "@/lib/security";
 
 const pixelFont = VT323({
   weight: "400",
@@ -28,17 +27,28 @@ export const viewport: Viewport = {
   themeColor: "#ff69b4",
 };
 
-// Get base URL for metadataBase
-const baseUrl = process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://cinepurr.me";
+const baseUrl =
+  process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://cinepurr.me";
+const siteTitle = "CinePurr - Retro watch parties with chat, games, and study rooms";
+const siteDescription =
+  "CinePurr is a real-time watch-together platform with synchronized rooms, live chat, shared queues, minigames, gamification, and study tools.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "CinePurr - Watch Movies & Videos Together with Friends",
-    template: "%s | CinePurr"
+    default: siteTitle,
+    template: "%s | CinePurr",
   },
-  description: "Watch movies and videos together in real-time with friends! Create rooms, chat, and enjoy perfectly synchronized playback with anyone, anywhere. 🐱🎬",
-  keywords: ["watch together", "watch party", "sync video", "movie night", "streaming", "friends", "social"],
+  description: siteDescription,
+  keywords: [
+    "watch together",
+    "watch party",
+    "sync video",
+    "movie night",
+    "streaming",
+    "friends",
+    "social",
+  ],
   authors: [{ name: "CinePurr Team" }],
   creator: "CinePurr",
   publisher: "CinePurr",
@@ -62,42 +72,34 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-
-  // Open Graph
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXTAUTH_URL || "https://cinepurr.me",
+    url: baseUrl,
     siteName: "CinePurr",
-    title: "CinePurr - Watch Movies & Videos Together with Friends",
-    description: "Watch movies and videos together in real-time with friends! Create rooms, chat, and enjoy perfectly synchronized playback with anyone, anywhere. 🐱🎬",
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
         url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "CinePurr - Watch Together",
+        width: 1920,
+        height: 1080,
+        alt: "CinePurr watch party preview",
       },
     ],
   },
-
-  // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "CinePurr - Watch Movies & Videos Together with Friends",
-    description: "Watch movies and videos together in real-time with friends! Create rooms, chat, and enjoy perfectly synchronized playback. 🐱🎬",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/og-image.png"],
     creator: "@cinepurr",
   },
-
-  // Apple Web App
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "CinePurr",
   },
-
-  // Additional meta
   applicationName: "CinePurr",
   category: "entertainment",
   other: {
@@ -122,8 +124,8 @@ export default async function RootLayout({
         showMaintenance = true;
       }
     }
-  } catch (e) {
-    // Ignore errors for resilience
+  } catch {
+    // Ignore maintenance checks on layout render failure to keep the app resilient.
   }
 
   return (
@@ -140,23 +142,18 @@ export default async function RootLayout({
             `,
           }}
         />
-        {/* Preconnect for external APIs used later in the app */}
         <link rel="dns-prefetch" href="https://api.themoviedb.org" />
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
         <link rel="dns-prefetch" href="https://www.omdbapi.com" />
 
-        {/* Preload critical resources for LCP - only resources that are definitely used */}
-        {/* VT323 font preloading is handled by next/font/google - no manual preload needed */}
-        {/* Preload default Pokemon sprite (LCP candidate on home page) */}
+        {/* Preload the sprite most likely to appear in the home-page hero. */}
         <link rel="preload" href="/sprites/animated/25.gif" as="image" />
 
-        {/* Manifest and icons */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 
-        {/* Apple Web App meta */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>

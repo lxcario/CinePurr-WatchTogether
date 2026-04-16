@@ -13,7 +13,7 @@ This document is a judge-facing summary of TestSprite artifacts currently commit
 - Backend TestSprite plan committed: YES (`testsprite_backend_test_plan.json`)
 - Standard PRD committed: YES (`standard_prd.json`)
 - TestSprite pass rate evidence: YES (`testsprite_dashboard_proof.png` showing 13/13 passing)
-- Root `demo.mp4` for final walkthrough: PENDING (in progress)
+- Final demo video link available: YES (`https://youtu.be/i0A-mW8Lt8M`)
 
 ## 2. Committed Artifact Inventory
 
@@ -25,6 +25,7 @@ This document is a judge-facing summary of TestSprite artifacts currently commit
 | `testsprite_tests/TC*.py` | Generated Playwright test scripts across rounds |
 | `testsprite_tests/testsprite_dashboard_proof.png` | Verifiable proof of local TestSprite execution showing the final **13/13** run |
 | `testsprite_tests/README.md` | Artifact index for quick review |
+| `https://youtu.be/i0A-mW8Lt8M` | Public demo video for judges |
 
 ## 3. Coverage Summary from Committed Plans
 
@@ -75,7 +76,7 @@ Result observed: 6 files passed, 17 tests passed.
 
 ## 6. Final Pre-Submission Actions
 
-1. Add final `demo.mp4` in repository root.
+1. Keep the public demo link visible in `README.md` and submission notes.
 2. Export and commit final TestSprite pass/fail report as a tracked file.
 3. Ensure `README.md` percentages and status text match committed report artifacts exactly.
 4. Post the public repository URL to the official Discord submission channel before deadline.
