@@ -165,8 +165,8 @@ CinePurr-WatchTogether/
 ---
 ## 📝 Legal & Repository Notes
 
-- ⚠️ **Disclaimer / Fair Use:** CinePurr is an educational prototype built exclusively for the TestSprite Hackathon S2. This project is strictly non-profit and not intended for commercial operations. All Pokémon assets, characters, and third-party movie streams are used under Fair Use for technical demonstration purposes only. All intellectual property rights belong to their respective original owners (Nintendo, The Pokémon Company, etc.). Any optional donations are strictly voluntary support for the developer's time and are not payments for access to copyrighted content or services.
-- 🔒 **Repository Note:** This is a clean, public mirror of the original private development repository. The commit history has been condensed to safely exclude production environment variables, database credentials, and proprietary API keys, while still making the full source code and TestSprite testing artifacts available to the judges.
+- ⚠️ **Disclaimer:** CinePurr is an educational, non-commercial prototype created for the TestSprite Hackathon S2. Any third-party characters, branding, and media references remain the property of their respective owners and are included solely for demonstration purposes in this prototype.
+- 🔒 **Repository Note:** This public repository is a sanitized mirror of the original private development repository. Commit history was condensed to exclude sensitive environment configuration, credentials, and private keys, while preserving the complete application source and TestSprite testing artifacts for judging.
 
 ---
 Built with ❤️ and pixel art by [@lxcario](https://github.com/lxcario)
