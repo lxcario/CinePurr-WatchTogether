@@ -33,29 +33,20 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Open the login page by clicking the LOGIN link so we can submit the invalid credentials.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/nav/div/div/a').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Navigate to http://localhost:3000/login to load the login form.
-        await page.goto("http://localhost:3000/login")
-        
-        # -> Fill the username field (index 1269) with 'invalid_user', fill the password field (index 1270) with 'wrong_password', then click the Sign In button (index 1275) to submit the form.
+        # -> Fill the username field with 'invalid_user', fill the password field with 'wrong_password', then click the Sign In button to submit and observe the resulting error message.
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('invalid_user')
         
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div[2]/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('wrong_password')
         
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

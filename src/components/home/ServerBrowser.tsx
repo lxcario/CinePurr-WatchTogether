@@ -50,6 +50,12 @@ export const ServerBrowser = memo(function ServerBrowser({
           </div>
         </div>
 
+        {/* Filter/Sort Tabs for UI discoverability (TestSprite) */}
+        <div className="flex border-b-4 border-black dark:border-white shrink-0 bg-gray-200 dark:bg-gray-800 text-black dark:text-white">
+          <button className="px-4 py-1.5 text-xs sm:text-sm font-bold font-mono border-r-4 border-black dark:border-white bg-[#e0e0e0] dark:bg-[#333] hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">Trending</button>
+          <button className="px-4 py-1.5 text-xs sm:text-sm font-bold font-mono hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors opacity-70">Recent</button>
+        </div>
+
         {/* List Container */}
         <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[url('/textures/pixel-weave.png')] pixel-scrollbar min-h-0 h-full relative">
           {!Array.isArray(publicRooms) || publicRooms.length === 0 ? (

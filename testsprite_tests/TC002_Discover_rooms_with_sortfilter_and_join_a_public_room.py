@@ -33,22 +33,21 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Click the first public room card's join link (index 1281) to join the room and load the room UI so playback and chat can be verified.
+        # -> Close the onboarding modal so the server browser is accessible, then select a public room and join it.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Close the welcome tour modal by clicking 'Skip', then click the first room card to join it and wait for the room UI to load so we can verify playback and chat.
+        # -> Click the 'Recent' filter button to apply the sort, then open a public room (Resque's Room) to join it so we can verify video playback and chat are visible.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[2]/button[2]').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click the first room card to join the room, wait for the room UI to load, then check the page for video playback elements and chat UI.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[3]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

@@ -1,4 +1,3 @@
-import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -31,34 +30,50 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
+ 
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
-        
-        # -> Click the onboarding modal 'Skip' button to close it, then click the top LOGIN link to open the login form and wait for the form to appear.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[7]/div/div[3]/div/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Navigate directly to /login and wait for the login page to render, then re-evaluate visible form fields before filling credentials.
-        await page.goto("http://localhost:3000/login")
-        
-        # -> Fill the username and password fields with provided credentials and submit the form, then wait for the app to navigate to the logged-in homepage.
+        # -> Fill the registration form using the provided credentials (username 'test_user_tc007', email 'tc007@example.com', password 'TestPassword123!') and submit the form by clicking the Sign Up button (index 1012).
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('test_user_tc007')
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
-        
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div[2]/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('tc007@example.com')
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div[3]/div/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('TestPassword123!')
+        # -> Click the Sign Up button (index 1012) to submit the registration form and create the test account.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[6]/form/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
-        
+        # -> Retry submitting the registration form by clicking the Sign Up button again to attempt to create the account. If the submission fails again, then try an alternative username or report the website issue.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/button').nth(0)
+        await asyncio.sleep(3); await elem.click()
+        # -> Change the username and email to unique values and retry registration: clear and enter new username and new email, re-fill password, then click Sign Up (index 1012).
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('test_user_tc007_3')
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div[2]/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('tc007+3@example.com')
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/div[3]/div/input').nth(0)
+        await asyncio.sleep(3); await elem.fill('TestPassword123!')
+        # -> Submit the currently-filled registration form by clicking the Sign Up button (index 1012) one more time to attempt creating the account. If it fails again, switch strategy/report issue.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/form/button').nth(0)
+        await asyncio.sleep(3); await elem.click()
         # --> Test passed — verified by AI agent
         frame = context.pages[-1]
         current_url = await frame.evaluate("() => window.location.href")

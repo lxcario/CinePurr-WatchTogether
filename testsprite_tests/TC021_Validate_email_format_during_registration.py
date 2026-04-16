@@ -33,14 +33,14 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Navigate to /register and load the registration page so I can observe the visible input fields before filling them.
+        # -> Open the registration page at /register so the form can be filled.
         await page.goto("http://localhost:3000/register")
         
-        # -> Fill the registration form with a valid-formed username, an invalid email format, a valid password, submit the form, then check for an inline email validation error.
+        # -> Fill the registration form with username 'Lucario', invalid email 'invalid-email-format', password 'rerere123', click 'Sign Up', then check for an inline email validation error message.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario_123')
+        await asyncio.sleep(3); await elem.fill('Lucario')
         
         frame = context.pages[-1]
         # Input text
@@ -50,9 +50,9 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/div[3]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('ValidPass123')
+        await asyncio.sleep(3); await elem.fill('rerere123')
         
-        # -> Click the 'Sign Up' button (element index 1178) to submit the form, then wait for the inline email validation message to appear and be observable.
+        # -> Click the 'Sign Up' button and verify an inline email validation error message is visible for the email field.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/form/button').nth(0)

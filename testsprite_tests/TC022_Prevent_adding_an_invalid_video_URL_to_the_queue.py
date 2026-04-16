@@ -1,4 +1,3 @@
-import os
 import asyncio
 from playwright import async_api
 from playwright.async_api import expect
@@ -34,49 +33,27 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Dismiss the onboarding modal so the page is interactive, then look for the 'Paste YouTube URL...' input (or the Create Room button if room creation is required).
+        # -> Click the public room entry in the room list to join a room (open room page).
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[3]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click 'CREATE ROOM' to create a new public room so the add-by-URL input becomes available.
+        # -> Click the 'Add URL to queue' button to open the add-by-URL dialog so I can enter the invalid URL.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div/div/div[3]/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main[2]/div/div/div[2]/div[3]/div/div/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Sign in using provided credentials (username: Lucario, password: ***REMOVED***) to reach the app and continue the add-by-URL flow.
+        # -> Fill the invalid URL 'not-a-url' into the paste-URL input and click Add to submit it.
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('Lucario')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/div[2]/div/input').nth(0)
-        await asyncio.sleep(3); await elem.fill(os.environ.get('DEMO_PASSWORD', 'demo_pass'))
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[6]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Click the 'CREATE ROOM' submit button to create a new public room so the room page (with the queue and the 'Paste YouTube URL...' input) opens.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div/div/div[3]/div[3]/form/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Type 'not-a-url' into the room URL input and submit it, wait 5 seconds, then extract page text around the queue and any toast messages to verify a validation error is visible and no queue item was added.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[2]/form/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main[2]/div/div/div[2]/div[3]/div[2]/div/div/div/input').nth(0)
         await asyncio.sleep(3); await elem.fill('not-a-url')
         
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[3]/div/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main[2]/div/div/div[2]/div[3]/div[2]/div/div/button[2]').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

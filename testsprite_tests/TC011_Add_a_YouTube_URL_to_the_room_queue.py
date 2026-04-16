@@ -33,50 +33,33 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Close the welcome/tour modal by clicking the 'Skip' button so the room UI (including the 'Paste YouTube URL...' input) is accessible.
+        # -> Click a public room from the room list (join Resque's Room).
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div/div/div[3]').nth(0)
+        await asyncio.sleep(3); await elem.click()
+        
+        # -> Close the welcome tour overlay so the room controls become accessible (click the 'Skip' button).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click the 'TestRoom TC011' entry in the server list to join the room so the 'Paste YouTube URL...' input becomes visible.
+        # -> Enter the public room by clicking the Resque's Room entry (JOIN) so room controls become available.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[3]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Close or toggle the virtual pet overlay so the room UI (including the 'Paste YouTube URL...' input and pink 'Add' button) becomes visible.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[4]/div/div/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Paste the YouTube URL into the room's URL/search input, click the Add/Queue button, wait 5 seconds, then extract the Queue area text to verify the new video entry appears.
+        # -> Paste a valid YouTube URL into the 'Search or Paste URL' input and click the 'Go' button to add the video to the room queue, then verify the queue shows the new video.
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[2]/form/input').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main[2]/div/div/div[2]/div[2]/form/input').nth(0)
         await asyncio.sleep(3); await elem.fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[3]/div/div/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Close the Keyboard Shortcuts modal so the 'Paste YouTube URL...' input and the pink Add/Go button are interactable.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div[2]/div/div/button').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Enter the YouTube URL into the room input and submit it, then verify the Queue area shows the newly added video.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[2]/form/input').nth(0)
-        await asyncio.sleep(3); await elem.fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[2]/form/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main[2]/div/div/div[2]/div[2]/form/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
         # --> Test passed — verified by AI agent

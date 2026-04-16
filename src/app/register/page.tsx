@@ -382,7 +382,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <form onSubmit={handleRegister} className="space-y-4">
+            <form onSubmit={handleRegister} className="space-y-4" noValidate>
               <div>
                 <label className="flex items-center gap-2 text-sm font-bold text-black mb-2 uppercase tracking-wider">
                   <User size={16} /> {t('username')}

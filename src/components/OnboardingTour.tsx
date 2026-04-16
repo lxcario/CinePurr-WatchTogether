@@ -406,14 +406,14 @@ export default function OnboardingTour({ onComplete, isLoggedIn = false }: Onboa
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {step > 0 ? (
-                      <button
+                      <button data-testsprite-id="onboarding-btn"
                         onClick={prev}
                         className="text-xs text-white/70 hover:text-white transition-colors px-3 py-2 font-mono uppercase bg-black/20 hover:bg-black/40 border-2 border-transparent hover:border-black"
                       >
                         ← Back
                       </button>
                     ) : (
-                      <button
+                      <button data-testsprite-id="onboarding-btn"
                         onClick={finish}
                         className="text-xs text-white/50 hover:text-white/90 transition-colors font-mono uppercase underline decoration-white/30 hover:decoration-white"
                       >
@@ -422,7 +422,7 @@ export default function OnboardingTour({ onComplete, isLoggedIn = false }: Onboa
                     )}
                   </div>
 
-                  <button
+                  <button data-testsprite-id="onboarding-btn"
                     onClick={next}
                     className={`px-5 py-2 text-sm font-bold uppercase tracking-wider transition-transform active:translate-y-1 ${isMobile ? 'min-h-[48px] min-w-[100px]' : ''}`}
                     style={{

@@ -193,7 +193,7 @@ export default function LoginPage() {
           )}
         </AnimatePresence>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           {/* Username Field */}
           <div className="form-group">
             <label className="form-label text-black dark:text-white">

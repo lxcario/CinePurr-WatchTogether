@@ -1,16 +1,12 @@
 # 🎬 CinePurr — Watch Together, Purrfectly Synced
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-cinepurr.me-brightgreen?style=for-the-badge)](https://cinepurr.me)
-[![Demo Video](https://img.shields.io/badge/Demo_Video-YouTube-red?style=for-the-badge&logo=youtube)](YOUR_YOUTUBE_LINK_HERE)
-
-
 **🌐 Live Demo: [https://cinepurr.me](https://cinepurr.me)**
 
 [![TestSprite Hackathon S2](https://img.shields.io/badge/TestSprite-Hackathon_S2-2E8B57?style=for-the-badge&logo=androidauto)](https://www.testsprite.com/hackathon-s2)
 
 > **A retro pixel-art, real-time watch-together platform** with synchronized rooms, chat, gamification, minigames, study tools, and social features — all wrapped in a Pokémon-themed UI.
 
-<br>
+> ⚠️ **Disclaimer / Fair Use:** CinePurr is an educational prototype built exclusively for the TestSprite Hackathon S2. This project is strictly non-profit and not intended for commercial operations. All Pokémon assets, characters, and third-party movie streams are used under Fair Use for technical demonstration purposes only. All intellectual property rights belong to their respective original owners (Nintendo, The Pokémon Company, etc.). Any optional donations are strictly voluntary support for the developer's time and are not payments for access to copyrighted content or services.
 
 ## 🧪 TestSprite Integration (Hackathon Submission)
 
@@ -22,8 +18,9 @@ This repository is submitted for the **[TestSprite Hackathon S2](https://www.tes
   - Backend plan: **9** scenarios ([`testsprite_backend_test_plan.json`](testsprite_tests/testsprite_backend_test_plan.json))
   - Generated scripts: **67** `TC*.py` files (multi-round generated set)
   - Standard PRD: [`standard_prd.json`](testsprite_tests/standard_prd.json)
-- **Judge guide:** [`testsprite_tests/HACKATHON_EVIDENCE.md`](testsprite_tests/HACKATHON_EVIDENCE.md) and [`testsprite_tests/README.md`](testsprite_tests/README.md)
-- **Demo Video:** In progress now. Final `demo.mp4` will be added before submission.
+  - Judge guide: [`testsprite_tests/HACKATHON_EVIDENCE.md`](testsprite_tests/HACKATHON_EVIDENCE.md) and [`testsprite_tests/README.md`](testsprite_tests/README.md)
+  - Local TestSprite execution evidence: screenshot at [`testsprite_tests/testsprite_dashboard_proof.png`](testsprite_tests/testsprite_dashboard_proof.png) showing the final **13/13** run.
+  - Demo Video: In progress now. Final `demo.mp4` will be added before submission.
 
 ## ✨ What Makes CinePurr Special
 
@@ -71,18 +68,23 @@ This project uses **TestSprite MCP** for AI-powered end-to-end testing.
 - Auth failures cascaded to 22 downstream test failures
 
 ### Round 2 (Local — localhost:3000)
-- **12/13 high-priority tests passed (92.3%)**
+- **12/13 high-priority tests passed (92.3%)** on the first local execution.
 - Tests executed against local dev server with real PostgreSQL database
 - TestSprite identified **3 actionable bugs** which were immediately fixed:
   - ✅ **Fixed:** Missing "Add to Watchlist" button on TMDB movie detail modal
   - ✅ **Fixed:** YouTube queue addition logic not appending to queue state
   - ✅ **Fixed:** Guest access redirect blocking room entry for non-authenticated users
 
+### Round 3 (Local — localhost:3000)
+- **13/13 high-priority tests passed (100%)**
+- Final verified run captured in `testsprite_tests/testsprite_dashboard_proof.png`
+- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`).
+
 ### Current repository snapshot
 - Frontend test plan currently tracks **13** prioritized scenarios.
 - Backend test plan currently tracks **9** API-focused scenarios.
 - The repository currently includes **67** generated `TC*.py` test scripts from multiple TestSprite passes.
-- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`). Proof of execution (12/13 tests passing) is documented in `testsprite_tests/testsprite_dashboard_proof.png`.
+- Local temporary execution artifacts are intentionally ignored in git (`testsprite_tests/tmp/`). Proof of execution (13/13 tests passing) is documented in `testsprite_tests/testsprite_dashboard_proof.png`.
 
 ### What We Learned
 TestSprite's AI agent was remarkably effective at finding real UI gaps — the missing watchlist button was a genuine feature regression that manual testing missed. The blocked tests revealed important UX friction points around guest access and empty-state handling that inform our roadmap.
@@ -163,11 +165,6 @@ CinePurr-WatchTogether/
 - The app uses Webpack for local dev (`next dev --webpack`) to avoid Turbopack OOM issues with 75KB `globals.css`
 
 ---
-## 📝 Legal & Repository Notes
 
-- ⚠️ **Disclaimer:** CinePurr is an educational, non-commercial prototype created for the TestSprite Hackathon S2. Any third-party characters, branding, and media references remain the property of their respective owners and are included solely for demonstration purposes in this prototype.
-- 🔒 **Repository Note:** This public repository is a sanitized mirror of the original private development repository. Commit history was condensed to exclude sensitive environment configuration, credentials, and private keys, while preserving the complete application source and TestSprite testing artifacts for judging.
-
----
 Built with ❤️ and pixel art by [@lxcario](https://github.com/lxcario)
 

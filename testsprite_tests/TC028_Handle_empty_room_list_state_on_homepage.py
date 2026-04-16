@@ -30,9 +30,9 @@ async def run_test():
         page = await context.new_page()
 
         # Interact with the page elements to simulate user flow
+ 
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
-        
         # --> Test passed — verified by AI agent
         frame = context.pages[-1]
         current_url = await frame.evaluate("() => window.location.href")

@@ -22,6 +22,8 @@ This directory contains the TestSprite-generated assets used for the CinePurr Ha
   - Generated test scripts from multiple generation/execution rounds.
 - `fix.js`
   - Local helper script used during one execution pass.
+- `testsprite_dashboard_proof.png`
+  - Proof of local TestSprite execution via screenshot showing the final **13/13** run.
 
 ## Naming Note
 

@@ -33,31 +33,18 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000")
         
-        # -> Dismiss the onboarding modal, join the public room 'Resque's Room', wait for chat input, send the message 'Message to persist in history', then verify it appears in chat history.
+        # -> Close the welcome modal by clicking 'Skip', then click the public room 'Resque's Room' to join it, and wait for the room page to load.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[7]/div/div[3]/div/button').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click the onboarding modal 'Skip' button (interactive element index 920) to dismiss the modal so the room list is accessible.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[7]/div/div[3]/div/button').nth(0)
+        elem = frame.locator('xpath=/html/body/div[2]/div/main/div[5]/div/div[2]/div/div/div[3]/a').nth(0)
         await asyncio.sleep(3); await elem.click()
         
-        # -> Click the public room 'Resque's Room' to join it.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Click the public room 'Resque's Room' in the server browser (click element index 1767) to join it.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=/html/body/div[3]/div/main/div[5]/div/div[2]/div/div/div[2]/a').nth(0)
-        await asyncio.sleep(3); await elem.click()
-        
-        # -> Type 'Message to persist in history' into the chat input, send it (Enter), scroll chat up then back to newest, and verify the message appears in the chat history.
+        # -> Type the test message into the chat input, send it, wait for the UI to update, and verify the message appears in the chat history.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=/html/body/div[3]/div/main[2]/div/div/div[2]/div[4]/div/div/form/div/input').nth(0)

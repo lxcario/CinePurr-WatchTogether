@@ -12,7 +12,7 @@ This document is a judge-facing summary of TestSprite artifacts currently commit
 - Frontend TestSprite plan committed: YES (`testsprite_frontend_test_plan.json`)
 - Backend TestSprite plan committed: YES (`testsprite_backend_test_plan.json`)
 - Standard PRD committed: YES (`standard_prd.json`)
-- TestSprite pass rate evidence: YES (`testsprite_dashboard_proof.png` showing 12/13 passing)
+- TestSprite pass rate evidence: YES (`testsprite_dashboard_proof.png` showing 13/13 passing)
 - Root `demo.mp4` for final walkthrough: PENDING (in progress)
 
 ## 2. Committed Artifact Inventory
@@ -23,7 +23,7 @@ This document is a judge-facing summary of TestSprite artifacts currently commit
 | `testsprite_tests/testsprite_backend_test_plan.json` | Backend scenario plan (9 scenarios) |
 | `testsprite_tests/standard_prd.json` | TestSprite-generated PRD and code summary |
 | `testsprite_tests/TC*.py` | Generated Playwright test scripts across rounds |
-| `testsprite_tests/testsprite_dashboard_proof.png` | Verifiable proof of local TestSprite run achieving 92.3% (12/13) pass rate |
+| `testsprite_tests/testsprite_dashboard_proof.png` | Verifiable proof of local TestSprite execution showing the final **13/13** run |
 | `testsprite_tests/README.md` | Artifact index for quick review |
 
 ## 3. Coverage Summary from Committed Plans
@@ -62,7 +62,7 @@ This document is a judge-facing summary of TestSprite artifacts currently commit
 ## 4. Execution Evidence Status in This Snapshot
 
 - The generated AI tests and plans are fully committed.
-- Execution history is documented by `testsprite_dashboard_proof.png`, which proves our local iteration sequence and our highest passing execution of 12/13 tests (92.3%).
+- Execution history is documented by `testsprite_dashboard_proof.png`, which captures the final 13/13 run.
 - TestSprite MCP was used extensively in a local environment (bypassing production bot layers) and enabled the detection and fix of 3 key bugs (detailed in project `README.md`).
 
 ## 5. Additional Quality Signal (Local Non-TestSprite)
